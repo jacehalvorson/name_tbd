@@ -13,8 +13,12 @@ class SampleItemDetailsView extends StatelessWidget {
         title: const Text('Item Details'),
       ),
       body: const Center(
-        child: Text('More Information Here'),
-      ),
+          child: Icon(
+        Icons.star,
+        color: Colors.pink,
+        size: 150.0,
+        semanticLabel: 'Text to announce in accessibility modes',
+      )),
     );
   }
 }
