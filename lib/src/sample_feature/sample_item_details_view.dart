@@ -12,13 +12,28 @@ class SampleItemDetailsView extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Item Details'),
       ),
-      body: const Center(
-          child: Icon(
-        Icons.star,
-        color: Colors.pink,
-        size: 150.0,
-        semanticLabel: 'Text to announce in accessibility modes',
-      )),
+      body: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.chevron_left_rounded,
+              // TODO use color scheme
+              color: Colors.grey.shade700,
+              size: 150.0,
+              semanticLabel: 'Text to announce in accessibility modes',
+            ),
+            Icon(
+              Icons.chevron_right_rounded,
+              // TODO use color scheme
+              color: Colors.grey.shade700,
+              size: 150.0,
+              semanticLabel: 'Text to announce in accessibility modes',
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
