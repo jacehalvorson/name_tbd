@@ -69,8 +69,8 @@ class MyApp extends StatelessWidget {
                 switch (routeSettings.name) {
                   case SettingsView.routeName:
                     return SettingsView(controller: settingsController);
-                  case SampleItemDetailsView.routeName:
-                    return const SampleItemDetailsView();
+                  case MainPage.routeName:
+                    return const MainPage();
                   case SampleItemListView.routeName:
                   default:
                     return const SampleItemListView();
