@@ -1,10 +1,19 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
-/// Displays detailed information about a SampleItem.
-class SampleItemDetailsView extends StatelessWidget {
-  const SampleItemDetailsView({super.key});
+class MainPage extends StatefulWidget {
+  const MainPage({super.key});
 
   static const routeName = '/sample_item';
+
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+/// Displays detailed information about a SampleItem.
+class _MainPageState extends State<MainPage> {
+  int _iconColor = 0xFF141414;
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +43,12 @@ class SampleItemDetailsView extends StatelessWidget {
             ),
 
             // Activity icon (emoji)
-            const Center(
+            Center(
               child: Icon(
                 Icons.fitness_center_rounded,
                 size: 300.0,
                 // TODO pick color
-                color: Color(0xFF141414),
+                color: Color(_iconColor),
                 //fromRGB(20, 20, 20),
               ),
             ),
@@ -56,6 +65,9 @@ class SampleItemDetailsView extends StatelessWidget {
                   // Button action
                   onPressed: () {
                     // TODO add button functionality here
+                    setState(() {
+                      _iconColor = Random().nextInt(0xFFFFFFFF);
+                    });
                   },
 
                   // Button style
