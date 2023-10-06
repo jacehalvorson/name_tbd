@@ -13,23 +13,65 @@ class SampleItemDetailsView extends StatelessWidget {
         title: const Text('Item Details'),
       ),
       body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(
-              Icons.chevron_left_rounded,
-              // TODO use color scheme
-              color: Colors.grey.shade700,
-              size: 150.0,
-              semanticLabel: 'Text to announce in accessibility modes',
+            const Padding(
+              padding: EdgeInsets.all(40.0),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  'How about...',
+                  // TODO pick text style
+                  style: TextStyle(
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF141414),
+                  ),
+                ),
+              ),
             ),
-            Icon(
-              Icons.chevron_right_rounded,
-              // TODO use color scheme
-              color: Colors.grey.shade700,
-              size: 150.0,
-              semanticLabel: 'Text to announce in accessibility modes',
+
+            // Activity icon (emoji)
+            const Center(
+              child: Icon(
+                Icons.fitness_center_rounded,
+                size: 300.0,
+                // TODO pick color
+                color: Color(0xFF141414),
+                //fromRGB(20, 20, 20),
+              ),
+            ),
+
+            // 'Let's run it' button at the bottom
+            Padding(
+              // 40.0 from the botto mof the screen
+              padding: const EdgeInsets.only(bottom: 40.0),
+              child: FractionallySizedBox(
+                // 80% of screen width
+                widthFactor: 0.8,
+
+                child: ElevatedButton(
+                  // Button action
+                  onPressed: () {
+                    // TODO add button functionality here
+                  },
+
+                  // Button style
+                  style: ButtonStyle(
+                    padding: MaterialStateProperty.all(
+                      const EdgeInsets.symmetric(vertical: 20.0),
+                    ),
+                  ),
+
+                  // Button text
+                  child: const Text(
+                    "Let's run it",
+                    style: TextStyle(fontSize: 24),
+                  ),
+                ),
+              ),
             ),
           ],
         ),
