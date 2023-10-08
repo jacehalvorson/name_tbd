@@ -26,12 +26,6 @@ class _MainPageState extends State<MainPage> {
       _iconColor = textColor;
     }
 
-    // Default text style
-    TextStyle textStyle = TextStyle(
-      fontSize: 30.0,
-      color: textColor,
-    );
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Item Details'),
@@ -47,7 +41,10 @@ class _MainPageState extends State<MainPage> {
                 alignment: Alignment.topLeft,
                 child: Text(
                   'How about...',
-                  style: textStyle,
+                  style: TextStyle(
+                    fontSize: 30.0,
+                    color: textColor,
+                  ),
                 ),
               ),
             ),
