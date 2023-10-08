@@ -21,15 +21,23 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     // Get the current color scheme
     Brightness brightness = Theme.of(context).brightness;
+    Color backgroundColor =
+        ThemeColor.getColor(ColorType.background, brightness);
+    Color primaryColor = ThemeColor.getColor(ColorType.primary, brightness);
     Color textColor = ThemeColor.getColor(ColorType.text, brightness);
+
+    // Initially, set the icon color to the text color
+    // Once the button is pressed, don't override the random color
     if (!_buttonPressed) {
       _iconColor = textColor;
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Item Details'),
+        title: const Text('Main Page'),
+        backgroundColor: primaryColor,
       ),
+      backgroundColor: backgroundColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -93,6 +101,12 @@ class _MainPageState extends State<MainPage> {
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(
                       const EdgeInsets.symmetric(vertical: 20.0),
+                    ),
+                    backgroundColor: MaterialStateProperty.all(primaryColor),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
                     ),
                   ),
 
