@@ -32,9 +32,10 @@ class _MainPageState extends State<MainPage> {
                 alignment: Alignment.topLeft,
                 child: Text(
                   'How about...',
+
                   // TODO pick text style
                   style: TextStyle(
-                    fontSize: 24.0,
+                    fontSize: 28.0,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF141414),
                   ),
@@ -43,19 +44,30 @@ class _MainPageState extends State<MainPage> {
             ),
 
             // Activity icon (emoji)
-            Center(
-              child: Icon(
-                Icons.fitness_center_rounded,
-                size: 300.0,
-                // TODO pick color
-                color: Color(_iconColor),
-                //fromRGB(20, 20, 20),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 40.0),
+              child: Column(
+                children: [
+                  Icon(
+                    Icons.fitness_center_rounded,
+                    size: 300.0,
+                    color: Color(_iconColor),
+                  ),
+                  Text(
+                    'Activity',
+                    style: TextStyle(
+                      fontSize: 28.0,
+                      fontWeight: FontWeight.bold,
+                      color: Color(_iconColor),
+                    ),
+                  ),
+                ],
               ),
             ),
 
             // 'Let's run it' button at the bottom
             Padding(
-              // 40.0 from the botto mof the screen
+              // 40.0 from the bottom of the screen
               padding: const EdgeInsets.only(bottom: 40.0),
               child: FractionallySizedBox(
                 // 80% of screen width
