@@ -1,6 +1,12 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:refresh/src/theme.dart';
+
+// Default text style
+const TextStyle textStyle = TextStyle(
+  fontSize: 30.0,
+  color: ThemeColor.text,
+);
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -13,7 +19,7 @@ class MainPage extends StatefulWidget {
 
 /// Displays detailed information about a SampleItem.
 class _MainPageState extends State<MainPage> {
-  int _iconColor = 0xFF141414;
+  int _iconColor = ThemeColor.text.value;
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +38,7 @@ class _MainPageState extends State<MainPage> {
                 alignment: Alignment.topLeft,
                 child: Text(
                   'How about...',
-
-                  // TODO pick text style
-                  style: TextStyle(
-                    fontSize: 28.0,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF141414),
-                  ),
+                  style: textStyle,
                 ),
               ),
             ),
@@ -56,7 +56,7 @@ class _MainPageState extends State<MainPage> {
                   Text(
                     'Activity',
                     style: TextStyle(
-                      fontSize: 28.0,
+                      fontSize: 36.0,
                       fontWeight: FontWeight.bold,
                       color: Color(_iconColor),
                     ),
@@ -76,7 +76,7 @@ class _MainPageState extends State<MainPage> {
                 child: ElevatedButton(
                   // Button action
                   onPressed: () {
-                    // TODO add button functionality here
+                    // TODO add button functionality
                     setState(() {
                       _iconColor = Random().nextInt(0xFFFFFFFF);
                     });
