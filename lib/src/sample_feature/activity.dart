@@ -12,6 +12,44 @@ class ActivityType {
   ActivityType({required this.id, required this.title, required this.icon});
 }
 
+// Animated activity widget with icon/text that slides on/off the screen
+class SlidingActivityWidget extends StatefulWidget {
+  const SlidingActivityWidget(
+      {super.key, required this.activity, required this.isActivityOnScreen});
+
+  final ActivityType activity;
+  final bool isActivityOnScreen;
+
+  @override
+  State<SlidingActivityWidget> createState() => _SlidingActivityWidgetState();
+}
+
+class _SlidingActivityWidgetState extends State<SlidingActivityWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedPositioned(
+      // 400 ms animation from on-screen to off-screen
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeInOut,
+
+      // If the activity title is 'Running', animate the widget off the
+      // screen. Otherwise, animate the widget on the screen.
+      top: widget.isActivityOnScreen
+          ? (MediaQuery.of(context).size.height / 2) - 200
+          : MediaQuery.of(context).size.height,
+
+      // Center horizontally
+      left: 0,
+      right: 0,
+
+      // Activity icon and name in the middle of the screen
+      child: ActivityWidget(
+        activity: widget.activity,
+      ),
+    );
+  }
+}
+
 // Activity icon (emoji)
 class ActivityWidget extends StatelessWidget {
   const ActivityWidget({super.key, required this.activity});

@@ -81,28 +81,21 @@ class _MainPageState extends State<MainPage> {
           // BackgroundElement(),
 
           // Animate the ActivityWidget on and off the screen
-          AnimatedPositioned(
-            // 50 ms animation from on-screen to off-screen
-            duration: const Duration(milliseconds: 400),
-
-            // If the activity title is 'Running', animate the widget off the
-            // screen. Otherwise, animate the widget on the screen.
-            top: isActivityOnScreen
-                ? (MediaQuery.of(context).size.height / 2) - 200
-                : MediaQuery.of(context).size.height,
-
-            // Center horizontally
-            left: 0,
-            right: 0,
-
-            // Activity icon and name in the middle of the screen
-            child: ActivityWidget(
-              activity: ActivityType(
-                id: 1,
-                title: activityTitle,
-                icon: '🏃',
-              ),
+          SlidingActivityWidget(
+            activity: ActivityType(
+              id: 1,
+              title: activityTitle,
+              icon: '🏃',
             ),
+            isActivityOnScreen: isActivityOnScreen,
+          ),
+          SlidingActivityWidget(
+            activity: ActivityType(
+              id: 1,
+              title: activityTitle,
+              icon: '🏂',
+            ),
+            isActivityOnScreen: !isActivityOnScreen,
           ),
 
           // Layout for the 'How about...' text and 'Let's run it' button
