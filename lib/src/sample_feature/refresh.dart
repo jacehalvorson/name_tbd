@@ -1,11 +1,13 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:refresh/src/sample_feature/acceptance.dart';
 import 'package:refresh/src/theme.dart';
+import 'package:refresh/src/sample_feature/activity.dart';
+import 'package:refresh/src/settings/settings_view.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
 
-  static const routeName = '/sample_item';
+  static const routeName = '/';
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -13,9 +15,23 @@ class MainPage extends StatefulWidget {
 
 /// Displays detailed information about a SampleItem.
 class _MainPageState extends State<MainPage> {
-  // Default value so this variable is not null when the widget first builds.
-  Color _iconColor = const Color(0xFFFFFFFF);
-  bool _buttonPressed = false;
+  // Default value, this is what will be first displayed to the user.
+  int swipeCount = 0;
+  DateTime? LastPressTime;
+
+  // Callback function passed to the AcceptanceButton
+  void acceptanceCallback() {
+    // Set the activity title to the randomly generated string
+    setState(() {
+      // Only increment swipe count if there hasn't been a button press
+      // or if the last button press was more than swipeDuration (300 ms) ago
+      if (LastPressTime == null ||
+          DateTime.now().difference(LastPressTime!) > swipeDuration) {
+        swipeCount++;
+        LastPressTime = DateTime.now();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,100 +42,80 @@ class _MainPageState extends State<MainPage> {
     Color primaryColor = ThemeColor.getColor(ColorType.primary, brightness);
     Color textColor = ThemeColor.getColor(ColorType.text, brightness);
 
-    // Initially, set the icon color to the text color
-    // Once the button is pressed, don't override the random color
-    if (!_buttonPressed) {
-      _iconColor = textColor;
-    }
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Main Page'),
         backgroundColor: primaryColor,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              // Navigate to the settings page. If the user leaves and returns
+              // to the app after it has been killed while running in the
+              // background, the navigation stack is restored.
+              Navigator.restorablePushNamed(context, SettingsView.routeName);
+            },
+          ),
+        ],
       ),
       backgroundColor: backgroundColor,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(40.0),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  'How about...',
-                  style: TextStyle(
-                    fontSize: 30.0,
-                    color: textColor,
-                  ),
-                ),
-              ),
-            ),
+      body: Stack(
+        children: [
+          // If we add some backgound (image, gradient, pattern, etc.)
+          // this is where to put it.
+          // For example:
+          // BackgroundElement(),
 
-            // Activity icon (emoji)
-            Padding(
-              padding: const EdgeInsets.only(bottom: 40.0),
-              child: Column(
-                children: [
-                  Icon(
-                    Icons.fitness_center_rounded,
-                    size: 300.0,
-                    color: _iconColor,
-                  ),
-                  Text(
-                    'Activity',
+          // Animate the ActivityWidget on and off the screen
+          SlidingActivityWidget(
+            activity: ActivityType(
+              id: 1,
+              title: 'Running',
+              icon: '🏃',
+            ),
+            swipeCount: swipeCount + 1,
+          ),
+          SlidingActivityWidget(
+            activity: ActivityType(
+              id: 2,
+              title: 'Snowboarding',
+              icon: '🏂',
+            ),
+            swipeCount: swipeCount,
+          ),
+          SlidingActivityWidget(
+            activity: ActivityType(
+              id: 3,
+              title: 'Basketball',
+              icon: '🏀',
+            ),
+            swipeCount: swipeCount + 2,
+          ),
+
+          // Layout for the 'How about...' text and 'Let's run it' button
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // 'How about...' text at the top
+              Padding(
+                padding: const EdgeInsets.all(40.0),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'How about...',
                     style: TextStyle(
-                      fontSize: 36.0,
-                      fontWeight: FontWeight.bold,
-                      color: _iconColor,
+                      fontSize: 30.0,
+                      color: textColor,
                     ),
-                  ),
-                ],
-              ),
-            ),
-
-            // 'Let's run it' button at the bottom
-            Padding(
-              // 40.0 from the bottom of the screen
-              padding: const EdgeInsets.only(bottom: 40.0),
-              child: FractionallySizedBox(
-                // 80% of screen width
-                widthFactor: 0.8,
-
-                child: ElevatedButton(
-                  // Button action
-                  onPressed: () {
-                    // TODO add button functionality
-                    setState(() {
-                      _iconColor = Color(Random().nextInt(0xFFFFFFFF));
-                      _buttonPressed = true;
-                    });
-                  },
-
-                  // Button style
-                  style: ButtonStyle(
-                    padding: MaterialStateProperty.all(
-                      const EdgeInsets.symmetric(vertical: 20.0),
-                    ),
-                    backgroundColor: MaterialStateProperty.all(primaryColor),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                    ),
-                  ),
-
-                  // Button text
-                  child: const Text(
-                    "Let's run it",
-                    style: TextStyle(fontSize: 24),
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
+
+              // 'Let's run it' button at the bottom
+              AcceptanceButton(onPressed: acceptanceCallback)
+            ],
+          ),
+        ],
       ),
     );
   }
