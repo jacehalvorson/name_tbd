@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:refresh/src/theme.dart';
+import 'package:refresh/src/sample_feature/activity.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -43,6 +44,7 @@ class _MainPageState extends State<MainPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            // 'How about...' text at the top
             Padding(
               padding: const EdgeInsets.all(40.0),
               child: Align(
@@ -57,25 +59,12 @@ class _MainPageState extends State<MainPage> {
               ),
             ),
 
-            // Activity icon (emoji)
-            Padding(
-              padding: const EdgeInsets.only(bottom: 40.0),
-              child: Column(
-                children: [
-                  Icon(
-                    Icons.fitness_center_rounded,
-                    size: 300.0,
-                    color: _iconColor,
-                  ),
-                  Text(
-                    'Activity',
-                    style: TextStyle(
-                      fontSize: 36.0,
-                      fontWeight: FontWeight.bold,
-                      color: _iconColor,
-                    ),
-                  ),
-                ],
+            // Activity icon and name in the middle
+            ActivityWidget(
+              activity: ActivityType(
+                id: 1,
+                title: 'Running',
+                icon: '🏃',
               ),
             ),
 
