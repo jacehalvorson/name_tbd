@@ -71,9 +71,8 @@ class MyApp extends StatelessWidget {
                     return SettingsView(controller: settingsController);
                   case MainPage.routeName:
                     return const MainPage();
-                  case SampleItemListView.routeName:
                   default:
-                    return const SampleItemListView();
+                    return const MainPage();
                 }
               },
             );
