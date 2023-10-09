@@ -15,10 +15,10 @@ class ActivityType {
 // Animated activity widget with icon/text that slides on/off the screen
 class SlidingActivityWidget extends StatefulWidget {
   const SlidingActivityWidget(
-      {super.key, required this.activity, required this.isActivityOnScreen});
+      {super.key, required this.activity, required this.swipeCount});
 
   final ActivityType activity;
-  final bool isActivityOnScreen;
+  final int swipeCount;
 
   @override
   State<SlidingActivityWidget> createState() => _SlidingActivityWidgetState();
@@ -27,6 +27,13 @@ class SlidingActivityWidget extends StatefulWidget {
 class _SlidingActivityWidgetState extends State<SlidingActivityWidget> {
   @override
   Widget build(BuildContext context) {
+    int adjustedSwipeCount = widget.swipeCount % 3;
+    Map<int, double> topValues = {
+      0: -300,
+      1: MediaQuery.of(context).size.height * 0.3,
+      2: MediaQuery.of(context).size.height,
+    };
+
     return AnimatedPositioned(
       // 400 ms animation from on-screen to off-screen
       duration: const Duration(milliseconds: 400),
@@ -34,9 +41,7 @@ class _SlidingActivityWidgetState extends State<SlidingActivityWidget> {
 
       // If the activity title is 'Running', animate the widget off the
       // screen. Otherwise, animate the widget on the screen.
-      top: widget.isActivityOnScreen
-          ? (MediaQuery.of(context).size.height / 2) - 200
-          : MediaQuery.of(context).size.height,
+      top: topValues[adjustedSwipeCount],
 
       // Center horizontally
       left: 0,

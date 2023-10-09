@@ -18,7 +18,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   // Default value, this is what will be first displayed to the user.
   String activityTitle = 'Running';
-  bool isActivityOnScreen = true;
+  int swipeCount = 0;
 
   // Sample callback function to be passed into the AcceptanceButton
   void acceptanceCallback() {
@@ -44,7 +44,7 @@ class _MainPageState extends State<MainPage> {
     // Set the activity title to the randomly generated string
     setState(() {
       activityTitle = randomString;
-      isActivityOnScreen = !isActivityOnScreen;
+      swipeCount++;
     });
   }
 
@@ -87,7 +87,7 @@ class _MainPageState extends State<MainPage> {
               title: activityTitle,
               icon: '🏃',
             ),
-            isActivityOnScreen: isActivityOnScreen,
+            swipeCount: swipeCount + 1,
           ),
           SlidingActivityWidget(
             activity: ActivityType(
@@ -95,7 +95,7 @@ class _MainPageState extends State<MainPage> {
               title: activityTitle,
               icon: '🏂',
             ),
-            isActivityOnScreen: !isActivityOnScreen,
+            swipeCount: swipeCount,
           ),
 
           // Layout for the 'How about...' text and 'Let's run it' button
