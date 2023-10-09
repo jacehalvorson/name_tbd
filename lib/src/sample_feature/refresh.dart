@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:refresh/src/sample_feature/acceptance.dart';
 import 'package:refresh/src/theme.dart';
 import 'package:refresh/src/sample_feature/activity.dart';
 
@@ -15,8 +16,33 @@ class MainPage extends StatefulWidget {
 /// Displays detailed information about a SampleItem.
 class _MainPageState extends State<MainPage> {
   // Default value so this variable is not null when the widget first builds.
-  Color _iconColor = const Color(0xFFFFFFFF);
-  bool _buttonPressed = false;
+  String activityTitle = 'Running';
+
+  void AcceptanceCallback() {
+    // Randomly generate a string [a-z][A-Z][0-9] with a length of 8
+    String randomString = List.generate(8, (index) {
+      // Randomly generate a number between 0 and 61
+      int random = Random().nextInt(62);
+
+      // If the number is less than 10, return a number
+      if (random < 10) {
+        return String.fromCharCode(random + 48);
+      }
+
+      // If the number is less than 36, return an uppercase letter
+      if (random < 36) {
+        return String.fromCharCode(random + 55);
+      }
+
+      // If the number is less than 62, return a lowercase letter
+      return String.fromCharCode(random + 61);
+    }).join();
+
+    // Set the icon color to the randomly generated color
+    setState(() {
+      activityTitle = randomString;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +52,6 @@ class _MainPageState extends State<MainPage> {
         ThemeColor.getColor(ColorType.background, brightness);
     Color primaryColor = ThemeColor.getColor(ColorType.primary, brightness);
     Color textColor = ThemeColor.getColor(ColorType.text, brightness);
-
-    // Initially, set the icon color to the text color
-    // Once the button is pressed, don't override the random color
-    if (!_buttonPressed) {
-      _iconColor = textColor;
-    }
 
     return Scaffold(
       appBar: AppBar(
@@ -63,50 +83,13 @@ class _MainPageState extends State<MainPage> {
             ActivityWidget(
               activity: ActivityType(
                 id: 1,
-                title: 'Running',
+                title: activityTitle,
                 icon: '🏃',
               ),
             ),
 
             // 'Let's run it' button at the bottom
-            Padding(
-              // 40.0 from the bottom of the screen
-              padding: const EdgeInsets.only(bottom: 40.0),
-              child: FractionallySizedBox(
-                // 80% of screen width
-                widthFactor: 0.8,
-
-                child: ElevatedButton(
-                  // Button action
-                  onPressed: () {
-                    // TODO add button functionality
-                    setState(() {
-                      _iconColor = Color(Random().nextInt(0xFFFFFFFF));
-                      _buttonPressed = true;
-                    });
-                  },
-
-                  // Button style
-                  style: ButtonStyle(
-                    padding: MaterialStateProperty.all(
-                      const EdgeInsets.symmetric(vertical: 20.0),
-                    ),
-                    backgroundColor: MaterialStateProperty.all(primaryColor),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                    ),
-                  ),
-
-                  // Button text
-                  child: const Text(
-                    "Let's run it",
-                    style: TextStyle(fontSize: 24),
-                  ),
-                ),
-              ),
-            ),
+            AcceptanceButton(onPressed: AcceptanceCallback)
           ],
         ),
       ),
