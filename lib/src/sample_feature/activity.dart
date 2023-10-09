@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:refresh/src/theme.dart';
+import 'package:refresh/src/sample_feature/animated_positioned_opacity.dart';
+
+const swipeDuration = Duration(milliseconds: 350);
 
 class ActivityType {
   // Activity icon
@@ -29,25 +32,21 @@ class _SlidingActivityWidgetState extends State<SlidingActivityWidget> {
   Widget build(BuildContext context) {
     int adjustedSwipeCount = widget.swipeCount % 3;
     Map<int, double> topValues = {
-      0: -300,
+      0: MediaQuery.of(context).size.height,
       1: MediaQuery.of(context).size.height * 0.3,
-      2: MediaQuery.of(context).size.height,
+      2: -300,
     };
 
-    return AnimatedPositioned(
-      // 400 ms animation from on-screen to off-screen
-      duration: const Duration(milliseconds: 400),
-      curve: Curves.easeInOut,
+    return AnimatedPositionedOpacity(
+      // 400 ms animation for swiping
+      duration: const Duration(milliseconds: 300),
 
-      // If the activity title is 'Running', animate the widget off the
-      // screen. Otherwise, animate the widget on the screen.
-      top: topValues[adjustedSwipeCount],
+      // Use ! to assert that the value is not null
+      topValue: topValues[adjustedSwipeCount]!,
 
-      // Center horizontally
-      left: 0,
-      right: 0,
+      // When adjustedSwipeCount is 1, this widget is on the screen
+      opacityValue: (adjustedSwipeCount == 1) ? 1 : 0,
 
-      // Activity icon and name in the middle of the screen
       child: ActivityWidget(
         activity: widget.activity,
       ),
