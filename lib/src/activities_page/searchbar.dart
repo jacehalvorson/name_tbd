@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../theme.dart';
 
 class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
-
   final VoidCallback openSheet;
 
   CustomHeaderDelegate({required this.openSheet});
@@ -17,10 +16,15 @@ class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 30.0),
-      child: Container(
-        //color: Colors.blue, // Background color
+    return Container(
+      decoration: BoxDecoration( // box decoration is unnecesary if padding is switched to the container
+        color: ThemeColor.getColor(ColorType.darkGray, Brightness.dark),
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(
+            bottom:
+                30.0), // NOTE: switch padding to wrap containing instead of column to reduce the area that the header blocks on ListView
         child: Column(
           children: [
             Padding(
@@ -29,8 +33,10 @@ class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
                 width: 40,
                 height: 6,
                 decoration: BoxDecoration(
-                  color: ThemeColor.getColor(ColorType.darkElement, Brightness.dark), // Set the background color
-                  borderRadius: BorderRadius.circular(3.0), // Set the border radius
+                  color: ThemeColor.getColor(ColorType.darkElement,
+                      Brightness.dark), // Set the background color
+                  borderRadius:
+                      BorderRadius.circular(3.0), // Set the border radius
                 ),
               ),
             ),
@@ -38,12 +44,13 @@ class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
               children: [
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.only(left:8.0, bottom:8.0),
+                    padding: const EdgeInsets.only(left: 8.0, bottom: 8.0),
                     child: Container(
                       height: 46,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(6),
-                        color: ThemeColor.getColor(ColorType.background, Brightness.dark),
+                        color: ThemeColor.getColor(
+                            ColorType.background, Brightness.dark),
                       ),
                       child: Center(
                         child: TextField(
@@ -51,15 +58,18 @@ class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
                             fontFamily: 'Montserrat',
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
-                            color: ThemeColor.getColor(ColorType.text, Brightness.dark), // text color
+                            color: ThemeColor.getColor(
+                                ColorType.text, Brightness.dark), // text color
                           ),
                           controller: textController,
                           textAlign: TextAlign.left,
-                          cursorColor: ThemeColor.getColor(ColorType.primary, Brightness.dark), // cursor color
+                          cursorColor: ThemeColor.getColor(ColorType.primary,
+                              Brightness.dark), // cursor color
                           decoration: InputDecoration(
                             prefixIcon: Icon(
                               Icons.search,
-                              color: ThemeColor.getColor(ColorType.darkElement, Brightness.dark),
+                              color: ThemeColor.getColor(
+                                  ColorType.darkElement, Brightness.dark),
                               size: 24.0,
                             ),
                             counterText: "",
@@ -69,7 +79,8 @@ class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
                               fontFamily: 'Montserrat',
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
-                              color: ThemeColor.getColor(ColorType.darkElement, Brightness.dark), // hint text color
+                              color: ThemeColor.getColor(ColorType.darkElement,
+                                  Brightness.dark), // hint text color
                             ),
                             border: OutlineInputBorder(
                               borderSide: BorderSide.none,
@@ -87,13 +98,13 @@ class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
                 ),
                 Center(
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 6, right: 8, bottom: 10.0),
+                    padding:
+                        const EdgeInsets.only(left: 6, right: 8, bottom: 10.0),
                     child: IconButton(
-                      icon: Icon(
-                        Icons.add_circle_outline,
-                        size: 36,
-                        color: ThemeColor.getColor(ColorType.primary, Brightness.dark)
-                      ),
+                      icon: Icon(Icons.add_circle_outline,
+                          size: 36,
+                          color: ThemeColor.getColor(
+                              ColorType.primary, Brightness.dark)),
                       onPressed: () {
                         openSheet();
                       },
