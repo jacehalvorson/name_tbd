@@ -24,7 +24,7 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ThemeColor.background,
+      backgroundColor: ThemeColor.getColor(ColorType.background, Brightness.dark),
       body: Stack(
         children: [
           Center(
@@ -40,7 +40,7 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
                         child: IconButton(
                           icon: Icon(Icons.arrow_back_ios),
                           iconSize: 28,
-                          color: ThemeColor.text,
+                          color: ThemeColor.getColor(ColorType.text, Brightness.dark),
                           onPressed: () {
                             Navigator.pop(context);
                           },
@@ -70,7 +70,7 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
                       IconButton(
                         icon: Icon(Icons.swap_vert),
                         iconSize: 28,
-                        color: ThemeColor.text,
+                        color: ThemeColor.getColor(ColorType.text, Brightness.dark),
                         onPressed: () {
                           // Implement sorting logic here
                         },

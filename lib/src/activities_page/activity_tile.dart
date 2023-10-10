@@ -17,7 +17,7 @@ class ActivityTile extends StatelessWidget {
       child: Container(
         height: 64, // Set the desired height
         decoration: BoxDecoration(
-          color: ThemeColor.darkGray,
+          color: ThemeColor.getColor(ColorType.darkGray, Brightness.dark),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Align(
@@ -51,7 +51,7 @@ class ActivityTile extends StatelessWidget {
                   child: IconButton(
                     icon: Icon(Icons.more_horiz),
                     iconSize: 28,
-                    color: ThemeColor.text,
+                    color: ThemeColor.getColor(ColorType.text, Brightness.dark),
                     onPressed: () {
                       // Implement sorting logic here
                     },

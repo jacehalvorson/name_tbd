@@ -29,7 +29,7 @@ class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
                 width: 40,
                 height: 6,
                 decoration: BoxDecoration(
-                  color: ThemeColor.darkElement, // Set the background color
+                  color: ThemeColor.getColor(ColorType.darkElement, Brightness.dark), // Set the background color
                   borderRadius: BorderRadius.circular(3.0), // Set the border radius
                 ),
               ),
@@ -43,7 +43,7 @@ class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
                       height: 46,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(6),
-                        color: ThemeColor.background,
+                        color: ThemeColor.getColor(ColorType.background, Brightness.dark),
                       ),
                       child: Center(
                         child: TextField(
@@ -51,15 +51,15 @@ class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
                             fontFamily: 'Montserrat',
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
-                            color: ThemeColor.text, // text color
+                            color: ThemeColor.getColor(ColorType.text, Brightness.dark), // text color
                           ),
                           controller: textController,
                           textAlign: TextAlign.left,
-                          cursorColor: ThemeColor.primary, // cursor color
+                          cursorColor: ThemeColor.getColor(ColorType.primary, Brightness.dark), // cursor color
                           decoration: InputDecoration(
                             prefixIcon: Icon(
                               Icons.search,
-                              color: ThemeColor.darkElement,
+                              color: ThemeColor.getColor(ColorType.darkElement, Brightness.dark),
                               size: 24.0,
                             ),
                             counterText: "",
@@ -69,7 +69,7 @@ class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
                               fontFamily: 'Montserrat',
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
-                              color: ThemeColor.darkElement, // hint text color
+                              color: ThemeColor.getColor(ColorType.darkElement, Brightness.dark), // hint text color
                             ),
                             border: OutlineInputBorder(
                               borderSide: BorderSide.none,
@@ -92,7 +92,7 @@ class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
                       icon: Icon(
                         Icons.add_circle_outline,
                         size: 36,
-                        color: ThemeColor.primary,
+                        color: ThemeColor.getColor(ColorType.primary, Brightness.dark)
                       ),
                       onPressed: () {
                         openSheet();

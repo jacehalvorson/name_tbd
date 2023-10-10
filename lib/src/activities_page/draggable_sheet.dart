@@ -47,7 +47,7 @@ class _DraggableSheetState extends State<DraggableSheet> {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: ThemeColor.darkGray,
+                color: ThemeColor.getColor(ColorType.darkElement, Brightness.dark),
                 borderRadius: BorderRadius.circular(10.0),
                 boxShadow: [
                   BoxShadow(
