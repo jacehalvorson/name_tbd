@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:refresh/src/theme.dart';
 import 'searchbar.dart';
-import '../theme.dart';
 
 class DraggableSheet extends StatefulWidget {
   const DraggableSheet({Key? key});
