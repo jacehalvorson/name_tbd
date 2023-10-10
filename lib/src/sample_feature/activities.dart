@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:refresh/src/theme.dart';
 import 'activity_tile.dart';
+import 'draggable_sheet.dart';
 
 class ActivitiesPage extends StatefulWidget {
   const ActivitiesPage({Key? key});
@@ -32,24 +33,32 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
               child: Column(
                 //mainAxisAlignment: MainAxisAlignment.center, // Center vertically
                 children: [
-                  Row(
+                  Stack(
                     children: [
-                      IconButton(
-                        icon: Icon(Icons.arrow_back_ios),
-                        iconSize: 28,
-                        color: ThemeColor.text,
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: IconButton(
+                          icon: Icon(Icons.arrow_back_ios),
+                          iconSize: 28,
+                          color: ThemeColor.text,
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
                       ),
-                      Text(
-                        'Activities',
-                        style: TextStyle(
-                          color: Color(0xFFF9F9F9),
-                          fontSize: 32,
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w600,
-                          height: 0,
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 4),
+                          child: Text(
+                            'Activities',
+                            style: TextStyle(
+                              color: Color(0xFFF9F9F9),
+                              fontSize: 32,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.w600,
+                              height: 0,
+                            ),
+                          ),
                         ),
                       ),
                     ],
@@ -105,6 +114,7 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
               ),
             ),
           ),
+          DraggableSheet()
         ],
       ),
     );
