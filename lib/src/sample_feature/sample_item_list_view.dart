@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../settings/settings_view.dart';
 import 'sample_item.dart';
 import 'refresh.dart';
-import 'activities.dart';
+import '../activities_page/activities.dart';
 
 /// Displays a list of SampleItems.
 class SampleItemListView extends StatelessWidget {
