@@ -4,6 +4,9 @@ import 'package:refresh/src/main_page/acceptance.dart';
 import 'package:refresh/src/theme.dart';
 import 'package:refresh/src/main_page/activity.dart';
 import 'package:refresh/src/settings/settings_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../activities_list.dart';
 
 const iconSize = 40.0;
 const iconPaddingTop = 18.0;
@@ -23,6 +26,25 @@ class _MainPageState extends State<MainPage> {
   // Default value, this is what will be first displayed to the user.
   int swipeCount = 0;
   DateTime? lastPressTime;
+
+  // retrieve user's activities
+  void retrieveUserActivities() async {
+    final prefs = await SharedPreferences.getInstance();
+    final stringList = prefs.getStringList('usersActivitiesSP');
+    if (stringList != null) {
+      usersActivities = stringList.map((string) => int.tryParse(string)).where((activity) => activity != null).cast<int>().toList();
+    } else {
+      usersActivities = <int>[];
+    }
+    print(usersActivities);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    retrieveUserActivities();
+  }
 
   // Callback function passed to the AcceptanceButton
   void acceptanceCallback() {
