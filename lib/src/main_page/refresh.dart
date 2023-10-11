@@ -60,6 +60,12 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
+  // temporary debug function to clear shared prefs
+  Future<void> clearSharedPrefs() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     // Get the current color scheme
@@ -79,6 +85,7 @@ class _MainPageState extends State<MainPage> {
           child: FloatingActionButton(
             backgroundColor: primaryColor,
             onPressed: () {
+              //clearSharedPrefs();
               // Navigate to the settings page. If the user leaves and returns
               // to the app after it has been killed while running in the
               // background, the navigation stack is restored.
