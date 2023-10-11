@@ -11,8 +11,8 @@ class ActivitiesPage extends StatefulWidget {
 }
 
 class _ActivitiesPageState extends State<ActivitiesPage> {
-  final List<String> emojis = ["🏂", "⛳️", "🧑‍💻", "🎮", "🏀", "🏋️"];
-  final List<String> names = [
+  final List<String> _emojis = ["🏂", "⛳️", "🧑‍💻", "🎮", "🏀", "🏋️"];
+  final List<String> _names = [
     "Snowboarding",
     "Golf",
     "Coding",
@@ -100,11 +100,11 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
                       child: ListView.builder(
                         padding:
                             EdgeInsets.only(top: 0), // Set top padding to 0
-                        itemCount: names.length,
+                        itemCount: _names.length,
                         itemBuilder: (BuildContext context, int index) {
                           return ActivityTile(
-                            emoji: emojis[index],
-                            name: names[index],
+                            emoji: _emojis[index],
+                            name: _names[index],
                           );
                         },
                       ),

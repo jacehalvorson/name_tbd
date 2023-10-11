@@ -3,8 +3,9 @@ import '../theme.dart';
 
 class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
   final VoidCallback openSheet;
+  final Function(String) filter;
 
-  CustomHeaderDelegate({required this.openSheet});
+  CustomHeaderDelegate({required this.openSheet, required this.filter});
 
   final textController = TextEditingController();
 
@@ -17,7 +18,8 @@ class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
-      decoration: BoxDecoration( // box decoration is unnecesary if padding is switched to the container
+      decoration: BoxDecoration(
+        // box decoration is unnecesary if padding is switched to the container
         color: ThemeColor.getColor(ColorType.darkGray, Brightness.dark),
         borderRadius: BorderRadius.circular(10.0),
       ),
@@ -62,6 +64,11 @@ class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
                                 ColorType.text, Brightness.dark), // text color
                           ),
                           controller: textController,
+
+                          onChanged: (text) {
+                            filter(textController.text);
+                          },
+
                           textAlign: TextAlign.left,
                           cursorColor: ThemeColor.getColor(ColorType.primary,
                               Brightness.dark), // cursor color

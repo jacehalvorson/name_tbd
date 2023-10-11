@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:refresh/src/theme.dart';
 import 'searchbar.dart';
+import '../activities_list.dart';
 
 class DraggableSheet extends StatefulWidget {
   const DraggableSheet({Key? key});
@@ -16,6 +17,18 @@ class _DraggableSheetState extends State<DraggableSheet> {
   final double openSize = 0.8;
   final double closeSize = 0.14;
 
+  List<int> filteredIndices = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    // populate filtered list at init state
+    for (int i = 0; i < activities.length; i++) {
+      filteredIndices.add(i);
+    }
+  }
+
   void _openSheet() {
     _scrollableController.animateTo(
       openSize,
@@ -24,15 +37,20 @@ class _DraggableSheetState extends State<DraggableSheet> {
     );
   }
 
-  final List<String> emojis = ["🏂", "⛳️", "🧑‍💻", "🎮", "🏀", "🏋️"];
-  final List<String> names = [
-    "Snowboarding",
-    "Golf",
-    "Coding",
-    "Video Games",
-    "Basketball",
-    "Workout"
-  ];
+    void filter(String searchText) {
+    // Filter the array to find all indices where the second column contains the searchText
+    filteredIndices =
+        List.generate(activities.length, (index) => index)
+            .where((index) => activities[index][1]
+                .toLowerCase()
+                .contains(searchText.toLowerCase()))
+            .toList();
+
+    print(filteredIndices);
+    setState(() {
+      
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,19 +82,29 @@ class _DraggableSheetState extends State<DraggableSheet> {
                   SliverPersistentHeader(
                     delegate: CustomHeaderDelegate(openSheet: () {
                       _openSheet();
+                    }, filter: (searchText) {
+                      filter(searchText);
                     }),
                     pinned: true,
                   ),
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
-                        return ListTile(
-                          title: Text('Item $index'),
-                        );
+                        if (index < filteredIndices.length) {
+                          final emoji = activities[filteredIndices[index]][0];
+                          final activity = activities[filteredIndices[index]][1];
+                          return ListTile(
+                            leading:
+                                Text(emoji, style: TextStyle(fontSize: 24)),
+                            title: Text(activity),
+                          );
+                        } else {
+                          return null;
+                        }
                       },
-                      childCount: 100,
+                      childCount: activities.length,
                     ),
-                  ),
+                  )
                 ],
               ),
             ),
