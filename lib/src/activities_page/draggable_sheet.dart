@@ -3,7 +3,7 @@ import 'package:refresh/src/theme.dart';
 import 'searchbar.dart';
 
 class DraggableSheet extends StatefulWidget {
-  const DraggableSheet({Key? key});
+  const DraggableSheet({super.key});
 
   @override
   State<DraggableSheet> createState() => _DraggableSheetState();
@@ -54,7 +54,7 @@ class _DraggableSheetState extends State<DraggableSheet> {
                     color: Colors.black.withOpacity(0.7),
                     spreadRadius: 10,
                     blurRadius: 30,
-                    offset: Offset(0, 4),
+                    offset: const Offset(0, 4),
                   ),
                 ],
               ),

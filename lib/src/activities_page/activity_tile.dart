@@ -5,7 +5,8 @@ class ActivityTile extends StatelessWidget {
   final String emoji;
   final String name;
 
-  ActivityTile({
+  const ActivityTile({
+    super.key,
     required this.emoji,
     required this.name,
   });
@@ -13,7 +14,7 @@ class ActivityTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: Container(
         height: 64, // Set the desired height
         decoration: BoxDecoration(
@@ -30,14 +31,14 @@ class ActivityTile extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: Text(
                     emoji,
-                    style: TextStyle(fontSize: 32),
+                    style: const TextStyle(fontSize: 32),
                   ),
                 ),
                 Expanded(
                   child: Text(
                     name,
                     textAlign: TextAlign.left,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Color(0xFFF9F9F9),
                       fontSize: 16,
                       fontFamily: 'Montserrat',
@@ -49,7 +50,7 @@ class ActivityTile extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: IconButton(
-                    icon: Icon(Icons.more_horiz),
+                    icon: const Icon(Icons.more_horiz),
                     iconSize: 28,
                     color: ThemeColor.getColor(ColorType.text, Brightness.dark),
                     onPressed: () {

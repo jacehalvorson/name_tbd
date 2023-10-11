@@ -4,7 +4,9 @@ import 'activity_tile.dart';
 import 'draggable_sheet.dart';
 
 class ActivitiesPage extends StatefulWidget {
-  const ActivitiesPage({Key? key});
+  const ActivitiesPage({super.key});
+
+  static const routeName = '/activites';
 
   @override
   State<ActivitiesPage> createState() => _ActivitiesPageState();
@@ -23,13 +25,18 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
 
   @override
   Widget build(BuildContext context) {
+    Brightness brightness = Theme.of(context).brightness;
+    Color backgroundColor =
+        ThemeColor.getColor(ColorType.background, brightness);
+    Color textColor = ThemeColor.getColor(ColorType.text, brightness);
+
     return Scaffold(
-      backgroundColor: ThemeColor.getColor(ColorType.background, Brightness.dark),
+      backgroundColor: backgroundColor,
       body: Stack(
         children: [
           Center(
             child: Padding(
-              padding: EdgeInsets.only(top: 80, left: 14, right: 14),
+              padding: const EdgeInsets.only(top: 80, left: 14, right: 14),
               child: Column(
                 //mainAxisAlignment: MainAxisAlignment.center, // Center vertically
                 children: [
@@ -38,17 +45,17 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: IconButton(
-                          icon: Icon(Icons.arrow_back_ios),
+                          icon: const Icon(Icons.arrow_back_ios),
                           iconSize: 28,
-                          color: ThemeColor.getColor(ColorType.text, Brightness.dark),
+                          color: textColor,
                           onPressed: () {
                             Navigator.pop(context);
                           },
                         ),
                       ),
-                      Center(
+                      const Center(
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 4),
+                          padding: EdgeInsets.only(top: 4),
                           child: Text(
                             'Activities',
                             style: TextStyle(
@@ -68,17 +75,18 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
                         MainAxisAlignment.end, // Align children to the right
                     children: [
                       IconButton(
-                        icon: Icon(Icons.swap_vert),
+                        icon: const Icon(Icons.swap_vert),
                         iconSize: 28,
-                        color: ThemeColor.getColor(ColorType.text, Brightness.dark),
+                        color: ThemeColor.getColor(
+                            ColorType.text, Brightness.dark),
                         onPressed: () {
                           // Implement sorting logic here
                         },
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 0,
                       ),
-                      Text(
+                      const Text(
                         'Sorting',
                         style: TextStyle(
                           color: Colors.white,
@@ -98,8 +106,8 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
                             width: 2), // Yellow border around the ListView
                       ),
                       child: ListView.builder(
-                        padding:
-                            EdgeInsets.only(top: 0), // Set top padding to 0
+                        padding: const EdgeInsets.only(
+                            top: 0), // Set top padding to 0
                         itemCount: names.length,
                         itemBuilder: (BuildContext context, int index) {
                           return ActivityTile(
