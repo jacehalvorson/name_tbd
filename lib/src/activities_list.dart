@@ -22,3 +22,5 @@ List<List<String>> activities = [
 ];
 
 List<int> usersActivities = [];
+
+List<int> filteredIndices = [];
