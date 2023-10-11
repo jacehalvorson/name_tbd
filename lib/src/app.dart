@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'sample_feature/refresh.dart';
+import 'main_page/refresh.dart';
+import 'activities_page/activities.dart';
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
 
@@ -66,10 +67,12 @@ class MyApp extends StatelessWidget {
               settings: routeSettings,
               builder: (BuildContext context) {
                 switch (routeSettings.name) {
-                  case SettingsView.routeName:
-                    return SettingsView(controller: settingsController);
                   case MainPage.routeName:
                     return const MainPage();
+                  case SettingsView.routeName:
+                    return SettingsView(controller: settingsController);
+                  case ActivitiesPage.routeName:
+                    return const ActivitiesPage();
                   default:
                     return const MainPage();
                 }

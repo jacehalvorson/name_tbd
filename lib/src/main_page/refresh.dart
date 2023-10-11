@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:refresh/src/sample_feature/acceptance.dart';
+import 'package:refresh/src/activities_page/activities.dart';
+import 'package:refresh/src/main_page/acceptance.dart';
 import 'package:refresh/src/theme.dart';
-import 'package:refresh/src/sample_feature/activity.dart';
+import 'package:refresh/src/main_page/activity.dart';
 import 'package:refresh/src/settings/settings_view.dart';
+
+const iconSize = 40.0;
+const iconPaddingTop = 18.0;
+const iconPaddingRight = 0.0;
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -17,7 +22,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   // Default value, this is what will be first displayed to the user.
   int swipeCount = 0;
-  DateTime? LastPressTime;
+  DateTime? lastPressTime;
 
   // Callback function passed to the AcceptanceButton
   void acceptanceCallback() {
@@ -25,10 +30,10 @@ class _MainPageState extends State<MainPage> {
     setState(() {
       // Only increment swipe count if there hasn't been a button press
       // or if the last button press was more than swipeDuration (300 ms) ago
-      if (LastPressTime == null ||
-          DateTime.now().difference(LastPressTime!) > swipeDuration) {
+      if (lastPressTime == null ||
+          DateTime.now().difference(lastPressTime!) > swipeDuration) {
         swipeCount++;
-        LastPressTime = DateTime.now();
+        lastPressTime = DateTime.now();
       }
     });
   }
@@ -43,21 +48,24 @@ class _MainPageState extends State<MainPage> {
     Color textColor = ThemeColor.getColor(ColorType.text, brightness);
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: primaryColor,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings),
+      backgroundColor: backgroundColor,
+      floatingActionButton: Padding(
+        padding:
+            const EdgeInsets.only(top: iconPaddingTop, right: iconPaddingRight),
+        child: Align(
+          alignment: Alignment.topRight,
+          child: FloatingActionButton(
+            backgroundColor: primaryColor,
             onPressed: () {
               // Navigate to the settings page. If the user leaves and returns
               // to the app after it has been killed while running in the
               // background, the navigation stack is restored.
-              Navigator.restorablePushNamed(context, SettingsView.routeName);
+              Navigator.restorablePushNamed(context, ActivitiesPage.routeName);
             },
+            child: const Icon(Icons.hiking),
           ),
-        ],
+        ),
       ),
-      backgroundColor: backgroundColor,
       body: Stack(
         children: [
           // If we add some backgound (image, gradient, pattern, etc.)

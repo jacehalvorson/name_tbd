@@ -17,7 +17,8 @@ class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
-      decoration: BoxDecoration( // box decoration is unnecesary if padding is switched to the container
+      decoration: BoxDecoration(
+        // box decoration is unnecesary if padding is switched to the container
         color: ThemeColor.getColor(ColorType.darkGray, Brightness.dark),
         borderRadius: BorderRadius.circular(10.0),
       ),
@@ -73,7 +74,7 @@ class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
                               size: 24.0,
                             ),
                             counterText: "",
-                            contentPadding: EdgeInsets.only(left: 8),
+                            contentPadding: const EdgeInsets.only(left: 8),
                             hintText: 'What do you like to do?',
                             hintStyle: TextStyle(
                               fontFamily: 'Montserrat',
