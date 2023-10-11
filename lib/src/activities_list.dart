@@ -16,7 +16,7 @@ List<List<String>> activities = [
   ["🏂", "Snowboarding"],
   ["⛳️", "Golf"],
   ["🧑‍💻", "Coding"],
-  ["🎮", "Video"],
+  ["🎮", "Video Games"],
   ["🏀", "Basketball"],
   ["🏋️", "Workout"],
 ];
