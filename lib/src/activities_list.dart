@@ -20,3 +20,5 @@ List<List<String>> activities = [
   ["🏀", "Basketball"],
   ["🏋️", "Workout"],
 ];
+
+List<int> usersActivities = [];

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:refresh/src/activities_list.dart';
 import 'package:refresh/src/theme.dart';
 import 'activity_tile.dart';
 import 'draggable_sheet.dart';
@@ -11,15 +12,10 @@ class ActivitiesPage extends StatefulWidget {
 }
 
 class _ActivitiesPageState extends State<ActivitiesPage> {
-  final List<String> _emojis = ["🏂", "⛳️", "🧑‍💻", "🎮", "🏀", "🏋️"];
-  final List<String> _names = [
-    "Snowboarding",
-    "Golf",
-    "Coding",
-    "Video Games",
-    "Basketball",
-    "Workout"
-  ];
+
+  void setActState() {
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,11 +96,11 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
                       child: ListView.builder(
                         padding:
                             EdgeInsets.only(top: 0), // Set top padding to 0
-                        itemCount: _names.length,
+                        itemCount: usersActivities.length,
                         itemBuilder: (BuildContext context, int index) {
                           return ActivityTile(
-                            emoji: _emojis[index],
-                            name: _names[index],
+                            emoji: activities[usersActivities[index]][0],
+                            name: activities[usersActivities[index]][1],
                           );
                         },
                       ),
@@ -114,7 +110,7 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
               ),
             ),
           ),
-          DraggableSheet()
+          DraggableSheet(setActState: setActState)
         ],
       ),
     );

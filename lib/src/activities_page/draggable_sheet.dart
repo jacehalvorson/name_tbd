@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:refresh/src/theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'searchbar.dart';
 import '../activities_list.dart';
 
 class DraggableSheet extends StatefulWidget {
-  const DraggableSheet({Key? key});
+
+  final VoidCallback setActState;
+  const DraggableSheet({Key? key, required this.setActState});
 
   @override
   State<DraggableSheet> createState() => _DraggableSheetState();
@@ -37,19 +41,25 @@ class _DraggableSheetState extends State<DraggableSheet> {
     );
   }
 
-    void filter(String searchText) {
+  void filter(String searchText) {
     // Filter the array to find all indices where the second column contains the searchText
-    filteredIndices =
-        List.generate(activities.length, (index) => index)
-            .where((index) => activities[index][1]
-                .toLowerCase()
-                .contains(searchText.toLowerCase()))
-            .toList();
+    filteredIndices = List.generate(activities.length, (index) => index)
+        .where((index) => activities[index][1]
+            .toLowerCase()
+            .contains(searchText.toLowerCase()))
+        .toList();
 
     print(filteredIndices);
-    setState(() {
-      
-    });
+    setState(() {});
+  }
+
+  // store user's activities in shared prefs
+  Future<void> storeUserActivities() async {
+    final prefs = await SharedPreferences.getInstance();
+    final stringList =
+        usersActivities.map((activity) => activity.toString()).toList();
+    await prefs.setStringList('usersActivitiesSP', stringList);
+    widget.setActState();
   }
 
   @override
@@ -92,11 +102,33 @@ class _DraggableSheetState extends State<DraggableSheet> {
                       (BuildContext context, int index) {
                         if (index < filteredIndices.length) {
                           final emoji = activities[filteredIndices[index]][0];
-                          final activity = activities[filteredIndices[index]][1];
+                          final activity =
+                              activities[filteredIndices[index]][1];
                           return ListTile(
                             leading:
                                 Text(emoji, style: TextStyle(fontSize: 24)),
                             title: Text(activity),
+                            trailing: IconButton(
+                              icon: Icon(Icons
+                                  .add_outlined), // prolly should change this
+                              onPressed: () {
+                                if (!usersActivities
+                                    .contains(filteredIndices[index])) {
+                                  usersActivities.add(filteredIndices[index]);
+                                  storeUserActivities();
+                                  print("Added $index to usersActivities");
+                                  print(
+                                      "current userActivities: $usersActivities");
+                                } else {
+                                  usersActivities
+                                      .remove(filteredIndices[index]);
+                                  storeUserActivities();
+                                  print("Removed $index from usersActivies");
+                                  print(
+                                      "current userActivities: $usersActivities");
+                                }
+                              },
+                            ),
                           );
                         } else {
                           return null;
