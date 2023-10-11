@@ -80,7 +80,7 @@ class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
                               size: 24.0,
                             ),
                             counterText: "",
-                            contentPadding: EdgeInsets.only(left: 8),
+                            contentPadding: const EdgeInsets.only(left: 8),
                             hintText: 'What do you like to do?',
                             hintStyle: TextStyle(
                               fontFamily: 'Montserrat',

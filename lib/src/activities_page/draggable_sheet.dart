@@ -82,7 +82,7 @@ class _DraggableSheetState extends State<DraggableSheet> {
                     color: Colors.black.withOpacity(0.7),
                     spreadRadius: 10,
                     blurRadius: 30,
-                    offset: Offset(0, 4),
+                    offset: const Offset(0, 4),
                   ),
                 ],
               ),
