@@ -2,7 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:refresh/src/theme.dart';
 import 'package:refresh/src/sample_feature/animated_positioned_opacity.dart';
 
-const swipeDuration = Duration(milliseconds: 350);
+// How long a swipe animation takes
+const swipeDuration = Duration(milliseconds: 250);
+
+// How far above the top of the screen that hidden objects are placed
+const offScreenAboveDistance = 300.0;
+// The multiplier for the screen height to determine the on-screen position
+const onScreenMultiplier = 0.28;
+// How far below the bottom of the screen that hidden objects are placed
+const offScreenBelowDistance = 0.0;
 
 class ActivityType {
   // Activity icon
@@ -30,11 +38,17 @@ class SlidingActivityWidget extends StatefulWidget {
 class _SlidingActivityWidgetState extends State<SlidingActivityWidget> {
   @override
   Widget build(BuildContext context) {
+    double bottomOfScreenPosition = MediaQuery.of(context).size.height;
+
+    // Based on the swipe count, determine the top position of the widget
     int adjustedSwipeCount = widget.swipeCount % 3;
     Map<int, double> topValues = {
-      0: MediaQuery.of(context).size.height,
-      1: MediaQuery.of(context).size.height * 0.3,
-      2: -300,
+      // Subtract the distance from the bottom of the screen to the top of the widget
+      0: bottomOfScreenPosition - offScreenBelowDistance,
+      // Use a fraction of the screen height to place the widget on the screen
+      1: bottomOfScreenPosition * onScreenMultiplier,
+      // Negate distance to place above the top of the screen
+      2: offScreenAboveDistance * -1,
     };
 
     return AnimatedPositionedOpacity(
