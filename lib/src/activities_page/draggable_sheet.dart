@@ -6,7 +6,6 @@ import 'searchbar.dart';
 import '../activities_list.dart';
 
 class DraggableSheet extends StatefulWidget {
-
   final VoidCallback setActState;
   const DraggableSheet({Key? key, required this.setActState});
 
@@ -29,7 +28,9 @@ class _DraggableSheetState extends State<DraggableSheet> {
 
     // populate filtered list at init state
     for (int i = 0; i < activities.length; i++) {
-      filteredIndices.add(i);
+      if (!usersActivities.contains(i)) {
+        filteredIndices.add(i);
+      }
     }
   }
 
@@ -42,12 +43,15 @@ class _DraggableSheetState extends State<DraggableSheet> {
   }
 
   void filter(String searchText) {
-    // Filter the array to find all indices where the second column contains the searchText
-    filteredIndices = List.generate(activities.length, (index) => index)
-        .where((index) => activities[index][1]
-            .toLowerCase()
-            .contains(searchText.toLowerCase()))
-        .toList();
+    if (searchText != "?") {
+      filteredIndices = List.generate(activities.length, (index) => index)
+          .where((index) => activities[index][1]
+              .toLowerCase()
+              .contains(searchText.toLowerCase()))
+          .toList();
+    }
+
+    filteredIndices.removeWhere((index) => usersActivities.contains(index));
 
     print(filteredIndices);
     setState(() {});
@@ -114,12 +118,18 @@ class _DraggableSheetState extends State<DraggableSheet> {
                               onPressed: () {
                                 if (!usersActivities
                                     .contains(filteredIndices[index])) {
+                                      
+                                  // add index to users activities
                                   usersActivities.add(filteredIndices[index]);
                                   storeUserActivities();
+                                  filter("?");
+
                                   print("Added $index to usersActivities");
                                   print(
                                       "current userActivities: $usersActivities");
                                 } else {
+                                  
+                                  // benign
                                   usersActivities
                                       .remove(filteredIndices[index]);
                                   storeUserActivities();
