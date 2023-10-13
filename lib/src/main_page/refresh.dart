@@ -3,7 +3,7 @@ import 'package:refresh/src/activities_page/activities.dart';
 import 'package:refresh/src/main_page/acceptance.dart';
 import 'package:refresh/src/theme.dart';
 import 'package:refresh/src/main_page/activity.dart';
-//import 'package:refresh/src/settings/settings_view.dart';
+import 'package:refresh/src/types.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../activities_list.dart';
@@ -32,7 +32,11 @@ class _MainPageState extends State<MainPage> {
     final prefs = await SharedPreferences.getInstance();
     final stringList = prefs.getStringList('usersActivitiesSP');
     if (stringList != null) {
-      usersActivities = stringList.map((string) => int.tryParse(string)).where((activity) => activity != null).cast<int>().toList();
+      usersActivities = stringList
+          .map((string) => int.tryParse(string))
+          .where((activity) => activity != null)
+          .cast<int>()
+          .toList();
     } else {
       usersActivities = <int>[];
     }

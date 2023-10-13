@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:refresh/src/theme.dart';
 import 'package:refresh/src/main_page/animated_positioned_opacity.dart';
+import 'package:refresh/src/types.dart';
 
 // How long a swipe animation takes
 const swipeDuration = Duration(milliseconds: 250);
@@ -11,14 +12,6 @@ const offScreenAboveDistance = 300.0;
 const onScreenMultiplier = 0.28;
 // How far below the bottom of the screen that hidden objects are placed
 const offScreenBelowDistance = 0.0;
-
-class ActivityType {
-  int id;
-  String title;
-  String icon;
-
-  ActivityType({required this.id, required this.title, required this.icon});
-}
 
 // Animated activity widget with icon/text that slides on/off the screen
 class SlidingActivityWidget extends StatefulWidget {
