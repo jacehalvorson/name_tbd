@@ -5,3 +5,9 @@ class ActivityType {
 
   ActivityType({required this.id, required this.title, required this.icon});
 }
+
+enum DisplayPosition {
+  belowScreen,
+  onScreen,
+  aboveScreen,
+}

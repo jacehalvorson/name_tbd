@@ -16,10 +16,10 @@ const offScreenBelowDistance = 0.0;
 // Animated activity widget with icon/text that slides on/off the screen
 class SlidingActivityWidget extends StatefulWidget {
   const SlidingActivityWidget(
-      {super.key, required this.activity, required this.swipeCount});
+      {super.key, required this.activity, required this.displayPosition});
 
   final ActivityType activity;
-  final int swipeCount;
+  final DisplayPosition displayPosition;
 
   @override
   State<SlidingActivityWidget> createState() => _SlidingActivityWidgetState();
@@ -30,16 +30,14 @@ class _SlidingActivityWidgetState extends State<SlidingActivityWidget> {
   Widget build(BuildContext context) {
     double bottomOfScreenPosition = MediaQuery.of(context).size.height;
 
-    // Give the widget a position (0, 1, or 2)
-    int adjustedSwipeCount = widget.swipeCount % 3;
-
-    Map<int, double> topValues = {
+    Map<DisplayPosition, double> topValues = {
       // Subtract the distance from the bottom of the screen to the top of the widget
-      0: bottomOfScreenPosition - offScreenBelowDistance,
+      DisplayPosition.belowScreen:
+          bottomOfScreenPosition - offScreenBelowDistance,
       // Use a fraction of the screen height to place the widget on the screen
-      1: bottomOfScreenPosition * onScreenMultiplier,
+      DisplayPosition.onScreen: bottomOfScreenPosition * onScreenMultiplier,
       // Negate distance to place above the top of the screen
-      2: offScreenAboveDistance * -1,
+      DisplayPosition.aboveScreen: offScreenAboveDistance * -1,
     };
 
     return AnimatedPositionedOpacity(
@@ -48,10 +46,11 @@ class _SlidingActivityWidgetState extends State<SlidingActivityWidget> {
 
       // Based on the swipe count, determine the top position of the widget
       // Use ! to assert that the value is not null
-      topValue: topValues[adjustedSwipeCount]!,
+      topValue: topValues[widget.displayPosition]!,
 
       // When adjustedSwipeCount is 1, this widget is on the screen
-      opacityValue: (adjustedSwipeCount == 1) ? 1 : 0,
+      opacityValue:
+          (widget.displayPosition == DisplayPosition.onScreen) ? 1 : 0,
 
       child: ActivityWidget(
         activity: widget.activity,
@@ -60,7 +59,7 @@ class _SlidingActivityWidgetState extends State<SlidingActivityWidget> {
   }
 }
 
-// Activity icon (emoji)
+// Activity icon (emoji) and title
 class ActivityWidget extends StatelessWidget {
   const ActivityWidget({super.key, required this.activity});
 
