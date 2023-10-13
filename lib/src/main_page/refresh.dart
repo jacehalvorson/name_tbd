@@ -3,7 +3,8 @@ import 'package:refresh/src/activities_page/activities.dart';
 import 'package:refresh/src/main_page/acceptance.dart';
 import 'package:refresh/src/theme.dart';
 import 'package:refresh/src/main_page/activity.dart';
-//import 'package:refresh/src/settings/settings_view.dart';
+import 'package:refresh/src/types.dart';
+import 'package:refresh/src/example_activities.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../activities_list.dart';
@@ -11,6 +12,10 @@ import '../activities_list.dart';
 const iconSize = 40.0;
 const iconPaddingTop = 18.0;
 const iconPaddingRight = 0.0;
+
+// Buffer for loaded activities ready to be displayed
+List<ActivityType> activityList = [];
+const activityBufferSize = 3;
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -32,7 +37,11 @@ class _MainPageState extends State<MainPage> {
     final prefs = await SharedPreferences.getInstance();
     final stringList = prefs.getStringList('usersActivitiesSP');
     if (stringList != null) {
-      usersActivities = stringList.map((string) => int.tryParse(string)).where((activity) => activity != null).cast<int>().toList();
+      usersActivities = stringList
+          .map((string) => int.tryParse(string))
+          .where((activity) => activity != null)
+          .cast<int>()
+          .toList();
     } else {
       usersActivities = <int>[];
     }
@@ -44,10 +53,17 @@ class _MainPageState extends State<MainPage> {
     super.initState();
 
     retrieveUserActivities();
+
+    // Add example activities to activityList
+    // These will be the first activities displayed to the user
+    for (int i = 0; i < activityBufferSize; i++) {
+      activityList.add(exampleActivities[i]);
+    }
   }
 
-  // Callback function passed to the AcceptanceButton
-  void acceptanceCallback() {
+  // Callback function for a swipe
+  // TODO Implement swipe mechanic to use this callback instead of the button
+  void swipeCallback() {
     // Set the activity title to the randomly generated string
     setState(() {
       // Only increment swipe count if there hasn't been a button press
@@ -55,10 +71,20 @@ class _MainPageState extends State<MainPage> {
       if (lastPressTime == null ||
           DateTime.now().difference(lastPressTime!) > swipeDuration) {
         swipeCount++;
+
+        // Add a new activity to the end of the list
+        activityList[((-1 * swipeCount) + 1) % activityBufferSize] =
+            exampleActivities[
+                (swipeCount + activityBufferSize) % exampleActivities.length];
+
         lastPressTime = DateTime.now();
       }
     });
   }
+
+  // Callback function passed to the AcceptanceButton
+  // TODO Acceptance animation when user presses "Let's run it"
+  void acceptanceCallback() {}
 
   @override
   Widget build(BuildContext context) {
@@ -95,31 +121,26 @@ class _MainPageState extends State<MainPage> {
           // For example:
           // BackgroundElement(),
 
-          // Animate the ActivityWidget on and off the screen
-          SlidingActivityWidget(
-            activity: ActivityType(
-              id: 1,
-              title: 'Running',
-              icon: '🏃',
-            ),
-            swipeCount: swipeCount + 1,
-          ),
-          SlidingActivityWidget(
-            activity: ActivityType(
-              id: 2,
-              title: 'Snowboarding',
-              icon: '🏂',
-            ),
-            swipeCount: swipeCount,
-          ),
-          SlidingActivityWidget(
-            activity: ActivityType(
-              id: 3,
-              title: 'Basketball',
-              icon: '🏀',
-            ),
-            swipeCount: swipeCount + 2,
-          ),
+          ...List.generate(activityBufferSize, (index) {
+            int adjustedIndex = (index + swipeCount) % activityBufferSize;
+
+            DisplayPosition displayPosition;
+            switch (adjustedIndex) {
+              case 0:
+                displayPosition = DisplayPosition.aboveScreen;
+                break;
+              case 1:
+                displayPosition = DisplayPosition.belowScreen;
+                break;
+              default:
+                displayPosition = DisplayPosition.onScreen;
+            }
+
+            return SlidingActivityWidget(
+              activity: activityList[index],
+              displayPosition: displayPosition,
+            );
+          }),
 
           // Layout for the 'How about...' text and 'Let's run it' button
           Column(
@@ -142,7 +163,7 @@ class _MainPageState extends State<MainPage> {
               ),
 
               // 'Let's run it' button at the bottom
-              AcceptanceButton(onPressed: acceptanceCallback)
+              AcceptanceButton(onPressed: swipeCallback)
             ],
           ),
         ],
