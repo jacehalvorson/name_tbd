@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:refresh/src/activities_page/activities.dart';
 import 'package:refresh/src/main_page/acceptance.dart';
@@ -58,7 +56,7 @@ class _MainPageState extends State<MainPage> {
 
     // Add example activities to activityList
     // These will be the first activities displayed to the user
-    for (int i = 0; i < exampleActivities.length; i++) {
+    for (int i = 0; i < activityBufferSize; i++) {
       activityList.add(exampleActivities[i]);
     }
   }
@@ -73,6 +71,11 @@ class _MainPageState extends State<MainPage> {
       if (lastPressTime == null ||
           DateTime.now().difference(lastPressTime!) > swipeDuration) {
         swipeCount++;
+
+        // Add a new activity to the end of the list
+        activityList[((-1 * swipeCount) + 1) % activityBufferSize] =
+            exampleActivities[
+                (swipeCount + activityBufferSize) % exampleActivities.length];
 
         lastPressTime = DateTime.now();
       }
@@ -119,25 +122,22 @@ class _MainPageState extends State<MainPage> {
           // BackgroundElement(),
 
           ...List.generate(activityBufferSize, (index) {
-            int adjustedIndex = swipeCount + index - 2;
-            adjustedIndex = (adjustedIndex < 0) ? 0 : adjustedIndex;
-            int onDeckIndex = (adjustedIndex + 1);
-            DisplayPosition displayPosition;
+            int adjustedIndex = (index + swipeCount) % activityBufferSize;
 
-            if (adjustedIndex == swipeCount) {
-              displayPosition = DisplayPosition.onScreen;
-            } else if (adjustedIndex >= onDeckIndex) {
-              displayPosition = DisplayPosition.belowScreen;
-            } else {
-              displayPosition = DisplayPosition.aboveScreen;
+            DisplayPosition displayPosition;
+            switch (adjustedIndex) {
+              case 0:
+                displayPosition = DisplayPosition.aboveScreen;
+                break;
+              case 1:
+                displayPosition = DisplayPosition.belowScreen;
+                break;
+              default:
+                displayPosition = DisplayPosition.onScreen;
             }
 
-            print(
-                'activity ${activityList[adjustedIndex].id}: ${activityList[adjustedIndex].title}');
-            print('displayIndex: ${displayPosition}');
-
             return SlidingActivityWidget(
-              activity: activityList[adjustedIndex],
+              activity: activityList[index],
               displayPosition: displayPosition,
             );
           }),
