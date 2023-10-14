@@ -12,6 +12,9 @@ const onScreenMultiplier = 0.28;
 // How far below the bottom of the screen that hidden objects are placed
 const offScreenBelowDistance = 0.0;
 
+const iconSize = 180;
+const fontSize = 26;
+
 // Animated activity widget with icon/text that slides on/off the screen
 class SlidingActivityWidget extends StatefulWidget {
   const SlidingActivityWidget(
@@ -69,29 +72,30 @@ class ActivityWidget extends StatelessWidget {
     // Get the current color scheme
     final colorScheme = Theme.of(context).colorScheme;
 
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 40.0),
-      child: Column(
-        children: [
-          // Display the emoji as text because it is a string
-          Text(
-            activity.icon,
-            style: const TextStyle(
-              fontSize: 200,
-            ),
+    return Column(
+      children: [
+        // Display the emoji as text because it is a string
+        Text(
+          activity.icon,
+          style: const TextStyle(
+            fontSize: 180,
           ),
-
-          // Activity title
-          Text(
-            activity.title,
-            style: TextStyle(
-              fontSize: 36.0,
-              fontWeight: FontWeight.bold,
-              color: colorScheme.onBackground,
-            ),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        // Activity title
+        Text(
+          activity.title,
+          style: TextStyle(
+            color: colorScheme.onBackground,
+            fontSize: 26,
+            fontFamily: 'Montserrat',
+            fontWeight: FontWeight.w600,
+            height: 0,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

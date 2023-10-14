@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../activities_page/activities.dart';
 import '../main_page/acceptance.dart';
-import '../main_page/activity.dart';
+import 'activity_widget.dart';
 import '../types.dart';
 import '../example_activities.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,6 +12,9 @@ import 'dart:math';
 const iconSize = 40.0;
 const iconPaddingTop = 18.0;
 const iconPaddingRight = 0.0;
+
+const headerPaddingTop = 18.0;
+const headerPaddingHorizontal = 24.0;
 
 // Buffer for loaded activities ready to be displayed
 List<ActivityType> activityList = [];
@@ -75,7 +78,8 @@ class _MainPageState extends State<MainPage> {
         // Add a new activity to the end of the list
         activityList[((-1 * swipeCount) + 1) % activityBufferSize] =
             exampleActivities[
-                (usersActivities[Random().nextInt(usersActivities.length)]) % exampleActivities.length];
+                (usersActivities[Random().nextInt(usersActivities.length)]) %
+                    exampleActivities.length];
 
         lastPressTime = DateTime.now();
       }
@@ -99,24 +103,6 @@ class _MainPageState extends State<MainPage> {
 
     return Scaffold(
       backgroundColor: colorScheme.background,
-      floatingActionButton: Padding(
-        padding:
-            const EdgeInsets.only(top: iconPaddingTop, right: iconPaddingRight),
-        child: Align(
-          alignment: Alignment.bottomRight,
-          child: FloatingActionButton(
-            backgroundColor: colorScheme.primary,
-            onPressed: () {
-              //clearSharedPrefs();
-              // Navigate to the settings page. If the user leaves and returns
-              // to the app after it has been killed while running in the
-              // background, the navigation stack is restored.
-              Navigator.restorablePushNamed(context, ActivitiesPage.routeName);
-            },
-            child: const Icon(Icons.hiking),
-          ),
-        ),
-      ),
       body: Stack(
         children: [
           // If we add some backgound (image, gradient, pattern, etc.)
@@ -146,28 +132,48 @@ class _MainPageState extends State<MainPage> {
           }),
 
           // Layout for the 'How about...' text and 'Let's run it' button
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // 'How about...' text at the top
-              Padding(
-                padding: const EdgeInsets.all(40.0),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    'How about...',
-                    style: TextStyle(
-                      fontSize: 30.0,
-                      color: colorScheme.onBackground,
+          Padding(
+            padding: const EdgeInsets.only(
+                top: 80,
+                right: headerPaddingHorizontal,
+                left: headerPaddingHorizontal),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'How About...',
+                      style: TextStyle(
+                        color: colorScheme.onBackground,
+                        fontSize: 32,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w600,
+                        height: 0,
+                      ),
                     ),
-                  ),
+                    IconButton(
+                      icon: const Icon(Icons.hiking),
+                      iconSize: iconSize,
+                      color: colorScheme.onBackground,
+                      onPressed: () {
+                        //clearSharedPrefs();
+                        // Navigate to the settings page. If the user leaves and returns
+                        // to the app after it has been killed while running in the
+                        // background, the navigation stack is restored.
+                        Navigator.restorablePushNamed(
+                            context, ActivitiesPage.routeName);
+                      },
+                    ),
+                  ],
                 ),
-              ),
 
-              // 'Let's run it' button at the bottom
-              AcceptanceButton(onPressed: swipeCallback)
-            ],
+                // 'Let's run it' button at the bottom
+                AcceptanceButton(onPressed: swipeCallback)
+              ],
+            ),
           ),
         ],
       ),
