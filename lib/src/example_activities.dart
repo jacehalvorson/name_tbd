@@ -1,4 +1,4 @@
-import 'package:refresh/src/types.dart';
+import 'types.dart';
 
 // TEMPORARY EXAMPLE ACTIVITIES LIST
 List<ActivityType> exampleActivities = [

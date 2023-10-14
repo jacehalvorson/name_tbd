@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:refresh/src/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'searchbar.dart';
@@ -68,6 +67,8 @@ class _DraggableSheetState extends State<DraggableSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return DraggableScrollableSheet(
       controller: _scrollableController, // Pass the controller
       initialChildSize: closeSize,
@@ -79,7 +80,7 @@ class _DraggableSheetState extends State<DraggableSheet> {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: ThemeColor.getColor(ColorType.darkGray, Brightness.dark),
+                color: colorScheme.secondary,
                 borderRadius: BorderRadius.circular(10.0),
                 boxShadow: [
                   BoxShadow(
@@ -118,7 +119,6 @@ class _DraggableSheetState extends State<DraggableSheet> {
                               onPressed: () {
                                 if (!usersActivities
                                     .contains(filteredIndices[index])) {
-                                      
                                   // add index to users activities
                                   usersActivities.add(filteredIndices[index]);
                                   storeUserActivities();
@@ -128,7 +128,6 @@ class _DraggableSheetState extends State<DraggableSheet> {
                                   print(
                                       "current userActivities: $usersActivities");
                                 } else {
-                                  
                                   // benign
                                   usersActivities
                                       .remove(filteredIndices[index]);

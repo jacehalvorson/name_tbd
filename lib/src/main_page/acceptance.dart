@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:refresh/src/theme.dart';
+
+const buttonPaddingBottom = 40.0;
+const buttonWidthFactor = 0.8;
 
 class AcceptanceButton extends StatelessWidget {
   const AcceptanceButton({super.key, required this.onPressed});
@@ -8,16 +10,14 @@ class AcceptanceButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Get the current color scheme
-    Brightness brightness = Theme.of(context).brightness;
-    Color primaryColor = ThemeColor.getColor(ColorType.primary, brightness);
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Padding(
       // 40.0 from the bottom of the screen
-      padding: const EdgeInsets.only(bottom: 40.0),
+      padding: const EdgeInsets.only(bottom: buttonPaddingBottom),
       child: FractionallySizedBox(
         // 80% of screen width
-        widthFactor: 0.8,
+        widthFactor: buttonWidthFactor,
 
         child: ElevatedButton(
           // Button action which is passed in as parameter
@@ -28,7 +28,7 @@ class AcceptanceButton extends StatelessWidget {
             padding: MaterialStateProperty.all(
               const EdgeInsets.symmetric(vertical: 20.0),
             ),
-            backgroundColor: MaterialStateProperty.all(primaryColor),
+            backgroundColor: MaterialStateProperty.all(colorScheme.primary),
             shape: MaterialStateProperty.all(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
@@ -37,9 +37,9 @@ class AcceptanceButton extends StatelessWidget {
           ),
 
           // Button text
-          child: const Text(
+          child: Text(
             "Let's run it",
-            style: TextStyle(fontSize: 24),
+            style: TextStyle(fontSize: 24, color: colorScheme.onPrimary),
           ),
         ),
       ),

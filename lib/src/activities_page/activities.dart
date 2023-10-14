@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:refresh/src/activities_list.dart';
-import 'package:refresh/src/theme.dart';
 import 'activity_tile.dart';
 import 'draggable_sheet.dart';
 
@@ -14,20 +13,16 @@ class ActivitiesPage extends StatefulWidget {
 }
 
 class _ActivitiesPageState extends State<ActivitiesPage> {
-
   void setActState() {
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    Brightness brightness = Theme.of(context).brightness;
-    Color backgroundColor =
-        ThemeColor.getColor(ColorType.background, brightness);
-    Color textColor = ThemeColor.getColor(ColorType.text, brightness);
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: colorScheme.background,
       body: Stack(
         children: [
           Center(
@@ -43,7 +38,7 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
                         child: IconButton(
                           icon: const Icon(Icons.arrow_back_ios),
                           iconSize: 28,
-                          color: textColor,
+                          color: colorScheme.onBackground,
                           onPressed: () {
                             Navigator.pop(context);
                           },
@@ -55,6 +50,8 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
                           child: Text(
                             'Activities',
                             style: TextStyle(
+                              // Consider changing the colorScheme
+                              // 'onBackground' color to this
                               color: Color(0xFFF9F9F9),
                               fontSize: 32,
                               fontFamily: 'Montserrat',
@@ -73,8 +70,7 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
                       IconButton(
                         icon: const Icon(Icons.swap_vert),
                         iconSize: 28,
-                        color: ThemeColor.getColor(
-                            ColorType.text, Brightness.dark),
+                        color: colorScheme.onBackground,
                         onPressed: () {
                           // Implement sorting logic here
                         },
@@ -102,8 +98,8 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
                             width: 2), // Yellow border around the ListView
                       ),
                       child: ListView.builder(
-                        padding:
-                            EdgeInsets.only(top: 0), // Set top padding to 0
+                        padding: const EdgeInsets.only(
+                            top: 0), // Set top padding to 0
                         itemCount: usersActivities.length,
                         itemBuilder: (BuildContext context, int index) {
                           return ActivityTile(

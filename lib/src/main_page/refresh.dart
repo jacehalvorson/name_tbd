@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:refresh/src/activities_page/activities.dart';
-import 'package:refresh/src/main_page/acceptance.dart';
-import 'package:refresh/src/theme.dart';
-import 'package:refresh/src/main_page/activity.dart';
-import 'package:refresh/src/types.dart';
-import 'package:refresh/src/example_activities.dart';
+import '../activities_page/activities.dart';
+import '../main_page/acceptance.dart';
+import '../main_page/activity.dart';
+import '../types.dart';
+import '../example_activities.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../activities_list.dart';
@@ -87,29 +86,25 @@ class _MainPageState extends State<MainPage> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.clear();
   }
+
   // Callback function passed to the AcceptanceButton
   // TODO Acceptance animation when user presses "Let's run it"
   void acceptanceCallback() {}
 
-  
   @override
   Widget build(BuildContext context) {
     // Get the current color scheme
-    Brightness brightness = Theme.of(context).brightness;
-    Color backgroundColor =
-        ThemeColor.getColor(ColorType.background, brightness);
-    Color primaryColor = ThemeColor.getColor(ColorType.primary, brightness);
-    Color textColor = ThemeColor.getColor(ColorType.text, brightness);
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: colorScheme.background,
       floatingActionButton: Padding(
         padding:
             const EdgeInsets.only(top: iconPaddingTop, right: iconPaddingRight),
         child: Align(
           alignment: Alignment.topRight,
           child: FloatingActionButton(
-            backgroundColor: primaryColor,
+            backgroundColor: colorScheme.primary,
             onPressed: () {
               //clearSharedPrefs();
               // Navigate to the settings page. If the user leaves and returns
@@ -163,7 +158,7 @@ class _MainPageState extends State<MainPage> {
                     'How about...',
                     style: TextStyle(
                       fontSize: 30.0,
-                      color: textColor,
+                      color: colorScheme.onBackground,
                     ),
                   ),
                 ),

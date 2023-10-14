@@ -1,36 +1,29 @@
 import 'package:flutter/material.dart';
 
-enum ColorType {
-  text,
-  background,
-  primary,
-  disabledText,
-  darkElement,
-  darkGray,
-}
+// Color scheme has been changed. Here is a mapping between
+// the names of the old colors to the names of the new colors:
 
-class ThemeColor {
-  static final Map<(ColorType, Brightness), Color> _colorMap = {
-    // Dark Theme Colors
-    (ColorType.text, Brightness.dark): const Color(0xFFFFFFFF),
-    (ColorType.background, Brightness.dark): const Color(0xFF111313),
-    (ColorType.primary, Brightness.dark): const Color(0xFF50A2D2),
-    (ColorType.disabledText, Brightness.dark): const Color(0xFF616161),
-    (ColorType.darkElement, Brightness.dark): const Color(0xFF616161),
-    (ColorType.darkGray, Brightness.dark): const Color(0xFF292929),
+// text => onBackground
+// disabledText => secondary
+// darkElement => seconday
+// darkGray => tertiary
 
-    // TODO update to the light theme colors we want
-    // Light Theme Colors
-    (ColorType.text, Brightness.light): const Color(0xFF000000),
-    (ColorType.background, Brightness.light): const Color(0xFFFFFFFF),
-    (ColorType.primary, Brightness.light): const Color(0xFF0000FF),
-    (ColorType.disabledText, Brightness.light): const Color(0xFF888888),
-    (ColorType.darkElement, Brightness.light): const Color(0xFF555555),
-    (ColorType.darkGray, Brightness.light): const Color(0xFF444444),
-  };
+// Note: The actual colors haven't changed, just the names
 
-  static Color getColor(ColorType themeColor, Brightness brightness) {
-    return _colorMap[(themeColor, brightness)] ??
-        Colors.black; // Provide a default color if not found
-  }
-}
+const darkColorScheme = ColorScheme.dark(
+  background: Color(0xFF111313),
+  onBackground: Color(0xFFFFFFFF),
+  primary: Color(0xFF50A2D2),
+  onPrimary: Color(0xFFFFFFFF),
+  secondary: Color(0xFF616161),
+  tertiary: Color(0xFF292929),
+);
+
+const lightColorScheme = ColorScheme.light(
+  background: Color(0xFFFFFFFF),
+  onBackground: Color(0xFF000000),
+  primary: Color(0xFF0000FF),
+  onPrimary: Color(0xFF000000),
+  secondary: Color(0xFF616161),
+  tertiary: Color(0xFFE0E0E0),
+);
