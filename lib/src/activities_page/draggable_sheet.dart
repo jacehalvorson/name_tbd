@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'searchbar.dart';
 import '../activities_list.dart';
+import '../example_activities.dart';
 
 class DraggableSheet extends StatefulWidget {
   final VoidCallback setActState;
@@ -26,7 +27,7 @@ class _DraggableSheetState extends State<DraggableSheet> {
     super.initState();
 
     // populate filtered list at init state
-    for (int i = 0; i < activities.length; i++) {
+    for (int i = 0; i < exampleActivities.length; i++) {
       if (!usersActivities.contains(i)) {
         filteredIndices.add(i);
       }
@@ -43,8 +44,8 @@ class _DraggableSheetState extends State<DraggableSheet> {
 
   void filter(String searchText) {
     if (searchText != "?") {
-      filteredIndices = List.generate(activities.length, (index) => index)
-          .where((index) => activities[index][1]
+      filteredIndices = List.generate(exampleActivities.length, (index) => index)
+          .where((index) => exampleActivities[index].title
               .toLowerCase()
               .contains(searchText.toLowerCase()))
           .toList();
@@ -80,7 +81,7 @@ class _DraggableSheetState extends State<DraggableSheet> {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: colorScheme.secondary,
+                color: colorScheme.tertiary,
                 borderRadius: BorderRadius.circular(10.0),
                 boxShadow: [
                   BoxShadow(
@@ -106,9 +107,9 @@ class _DraggableSheetState extends State<DraggableSheet> {
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
                         if (index < filteredIndices.length) {
-                          final emoji = activities[filteredIndices[index]][0];
+                          final emoji = exampleActivities[filteredIndices[index]].icon;
                           final activity =
-                              activities[filteredIndices[index]][1];
+                              exampleActivities[filteredIndices[index]].title;
                           return ListTile(
                             leading:
                                 Text(emoji, style: TextStyle(fontSize: 24)),
@@ -143,7 +144,7 @@ class _DraggableSheetState extends State<DraggableSheet> {
                           return null;
                         }
                       },
-                      childCount: activities.length,
+                      childCount: exampleActivities.length,
                     ),
                   )
                 ],

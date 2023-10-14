@@ -7,6 +7,7 @@ import '../example_activities.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../activities_list.dart';
+import 'dart:math';
 
 const iconSize = 40.0;
 const iconPaddingTop = 18.0;
@@ -74,7 +75,7 @@ class _MainPageState extends State<MainPage> {
         // Add a new activity to the end of the list
         activityList[((-1 * swipeCount) + 1) % activityBufferSize] =
             exampleActivities[
-                (swipeCount + activityBufferSize) % exampleActivities.length];
+                (usersActivities[Random().nextInt(usersActivities.length)]) % exampleActivities.length];
 
         lastPressTime = DateTime.now();
       }
@@ -102,7 +103,7 @@ class _MainPageState extends State<MainPage> {
         padding:
             const EdgeInsets.only(top: iconPaddingTop, right: iconPaddingRight),
         child: Align(
-          alignment: Alignment.topRight,
+          alignment: Alignment.bottomRight,
           child: FloatingActionButton(
             backgroundColor: colorScheme.primary,
             onPressed: () {

@@ -21,7 +21,7 @@ class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
     return Container(
       decoration: BoxDecoration(
         // box decoration is unnecesary if padding is switched to the container
-        color: colorScheme.background,
+        color: colorScheme.tertiary,
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: Padding(
@@ -59,7 +59,7 @@ class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
                             fontFamily: 'Montserrat',
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
-                            color: colorScheme.background, // text color
+                            color: colorScheme.onBackground, // text field color
                           ),
                           controller: textController,
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:refresh/src/activities_list.dart';
 import 'activity_tile.dart';
 import 'draggable_sheet.dart';
+import '../example_activities.dart';
 
 class ActivitiesPage extends StatefulWidget {
   const ActivitiesPage({super.key});
@@ -103,8 +104,8 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
                         itemCount: usersActivities.length,
                         itemBuilder: (BuildContext context, int index) {
                           return ActivityTile(
-                            emoji: activities[usersActivities[index]][0],
-                            name: activities[usersActivities[index]][1],
+                            emoji: exampleActivities[usersActivities[index]].icon,
+                            name: exampleActivities[usersActivities[index]].title,
                           );
                         },
                       ),
