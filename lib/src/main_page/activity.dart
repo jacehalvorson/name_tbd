@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:refresh/src/theme.dart';
-import 'package:refresh/src/main_page/animated_positioned_opacity.dart';
-import 'package:refresh/src/types.dart';
+import '../main_page/animated_positioned_opacity.dart';
+import '../types.dart';
 
 // How long a swipe animation takes
 const swipeDuration = Duration(milliseconds: 250);
@@ -68,8 +67,7 @@ class ActivityWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Get the current color scheme
-    Brightness brightness = Theme.of(context).brightness;
-    Color textColor = ThemeColor.getColor(ColorType.text, brightness);
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 40.0),
@@ -89,7 +87,7 @@ class ActivityWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 36.0,
               fontWeight: FontWeight.bold,
-              color: textColor,
+              color: colorScheme.onBackground,
             ),
           ),
         ],

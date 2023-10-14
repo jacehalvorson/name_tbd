@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../theme.dart';
 
 class ActivityTile extends StatelessWidget {
   final String emoji;
@@ -13,12 +12,14 @@ class ActivityTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Container(
         height: 64, // Set the desired height
         decoration: BoxDecoration(
-          color: ThemeColor.getColor(ColorType.darkGray, Brightness.dark),
+          color: colorScheme.tertiary,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Align(
@@ -52,7 +53,7 @@ class ActivityTile extends StatelessWidget {
                   child: IconButton(
                     icon: const Icon(Icons.more_horiz),
                     iconSize: 28,
-                    color: ThemeColor.getColor(ColorType.text, Brightness.dark),
+                    color: colorScheme.onBackground,
                     onPressed: () {
                       // Implement sorting logic here
                     },
