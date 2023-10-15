@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../activities_page/activities.dart';
-import '../main_page/acceptance.dart';
+import 'acceptance_button.dart';
 import 'activity_widget.dart';
-import '../types.dart';
+import '../util/types.dart';
 import '../example_activities.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,6 +15,8 @@ const iconPaddingRight = 0.0;
 
 const headerPaddingTop = 18.0;
 const headerPaddingHorizontal = 24.0;
+
+final random = Random();
 
 // Buffer for loaded activities ready to be displayed
 List<ActivityType> activityList = [];
@@ -78,7 +80,7 @@ class _MainPageState extends State<MainPage> {
         // Add a new activity to the end of the list
         activityList[((-1 * swipeCount) + 1) % activityBufferSize] =
             exampleActivities[
-                (usersActivities[Random().nextInt(usersActivities.length)]) %
+                (usersActivities[random.nextInt(usersActivities.length)]) %
                     exampleActivities.length];
 
         lastPressTime = DateTime.now();

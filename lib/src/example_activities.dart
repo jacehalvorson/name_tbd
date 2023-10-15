@@ -1,4 +1,4 @@
-import 'types.dart';
+import 'util/types.dart';
 
 // TEMPORARY EXAMPLE ACTIVITIES LIST
 List<ActivityType> exampleActivities = [

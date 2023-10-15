@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../main_page/animated_positioned_opacity.dart';
-import '../types.dart';
+import '../util/animated_positioned_opacity.dart';
+import '../util/types.dart';
 
 // How long a swipe animation takes
 const swipeDuration = Duration(milliseconds: 250);
