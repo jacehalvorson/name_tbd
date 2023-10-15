@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../util/animated_positioned_opacity.dart';
 import '../util/types.dart';
 

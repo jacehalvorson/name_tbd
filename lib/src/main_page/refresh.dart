@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:refresh/src/util/get_next_activity.dart';
-import '../activities_page/activities.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:math';
+
 import 'acceptance_button.dart';
 import 'activity_widget.dart';
+import '../activities_page/activities.dart';
 import '../util/types.dart';
+import '../util/get_next_activity.dart';
 import '../example_activities.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../activities_list.dart';
-import 'dart:math';
 
 const iconSize = 40.0;
 const iconPaddingTop = 18.0;
