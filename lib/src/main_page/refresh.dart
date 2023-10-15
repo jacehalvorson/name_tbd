@@ -63,7 +63,7 @@ class _MainPageState extends State<MainPage> {
     // Add example activities to activityList
     // These will be the first activities displayed to the user
     for (int i = 0; i < activityBufferSize; i++) {
-      activityList.add(exampleActivities[i]);
+      activityList.add(getNextActivity(usersActivities, exampleActivities));
     }
   }
 
@@ -160,8 +160,8 @@ class _MainPageState extends State<MainPage> {
                       iconSize: iconSize,
                       color: colorScheme.onBackground,
                       onPressed: () {
-                        //clearSharedPrefs();
-                        // Navigate to the settings page. If the user leaves and returns
+                        // clearSharedPrefs();
+                        // Navigate to the activities page. If the user leaves and returns
                         // to the app after it has been killed while running in the
                         // background, the navigation stack is restored.
                         Navigator.restorablePushNamed(
