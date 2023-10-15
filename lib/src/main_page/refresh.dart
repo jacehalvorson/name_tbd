@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import '../activities_page/activities.dart';
-import '../main_page/acceptance.dart';
-import 'activity_widget.dart';
-import '../types.dart';
-import '../example_activities.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../activities_list.dart';
 import 'dart:math';
+
+import 'acceptance_button.dart';
+import 'activity_widget.dart';
+import '../activities_page/activities.dart';
+import '../util/types.dart';
+import '../util/get_next_activity.dart';
+import '../example_activities.dart';
+import '../activities_list.dart';
 
 const iconSize = 40.0;
 const iconPaddingTop = 18.0;
@@ -16,8 +17,10 @@ const iconPaddingRight = 0.0;
 const headerPaddingTop = 18.0;
 const headerPaddingHorizontal = 24.0;
 
+final random = Random();
+
 // Buffer for loaded activities ready to be displayed
-List<ActivityType> activityList = [];
+List<Activity> activityList = [];
 const activityBufferSize = 3;
 
 class MainPage extends StatefulWidget {
@@ -60,7 +63,7 @@ class _MainPageState extends State<MainPage> {
     // Add example activities to activityList
     // These will be the first activities displayed to the user
     for (int i = 0; i < activityBufferSize; i++) {
-      activityList.add(exampleActivities[i]);
+      activityList.add(getNextActivity(usersActivities, exampleActivities));
     }
   }
 
@@ -77,9 +80,7 @@ class _MainPageState extends State<MainPage> {
 
         // Add a new activity to the end of the list
         activityList[((-1 * swipeCount) + 1) % activityBufferSize] =
-            exampleActivities[
-                (usersActivities[Random().nextInt(usersActivities.length)]) %
-                    exampleActivities.length];
+            getNextActivity(usersActivities, exampleActivities);
 
         lastPressTime = DateTime.now();
       }
@@ -159,8 +160,8 @@ class _MainPageState extends State<MainPage> {
                       iconSize: iconSize,
                       color: colorScheme.onBackground,
                       onPressed: () {
-                        //clearSharedPrefs();
-                        // Navigate to the settings page. If the user leaves and returns
+                        // clearSharedPrefs();
+                        // Navigate to the activities page. If the user leaves and returns
                         // to the app after it has been killed while running in the
                         // background, the navigation stack is restored.
                         Navigator.restorablePushNamed(

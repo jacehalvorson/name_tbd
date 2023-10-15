@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../main_page/animated_positioned_opacity.dart';
-import '../types.dart';
+
+import '../util/animated_positioned_opacity.dart';
+import '../util/types.dart';
 
 // How long a swipe animation takes
 const swipeDuration = Duration(milliseconds: 250);
@@ -20,7 +21,7 @@ class SlidingActivityWidget extends StatefulWidget {
   const SlidingActivityWidget(
       {super.key, required this.activity, required this.displayPosition});
 
-  final ActivityType activity;
+  final Activity activity;
   final DisplayPosition displayPosition;
 
   @override
@@ -65,7 +66,7 @@ class _SlidingActivityWidgetState extends State<SlidingActivityWidget> {
 class ActivityWidget extends StatelessWidget {
   const ActivityWidget({super.key, required this.activity});
 
-  final ActivityType activity;
+  final Activity activity;
 
   @override
   Widget build(BuildContext context) {

@@ -1,9 +1,9 @@
-class ActivityType {
+class Activity {
   int id;
   String title;
   String icon;
 
-  ActivityType({required this.id, required this.title, required this.icon});
+  Activity({required this.id, required this.title, required this.icon});
 }
 
 enum DisplayPosition {
