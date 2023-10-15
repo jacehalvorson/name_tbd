@@ -19,7 +19,7 @@ const headerPaddingHorizontal = 24.0;
 final random = Random();
 
 // Buffer for loaded activities ready to be displayed
-List<ActivityType> activityList = [];
+List<Activity> activityList = [];
 const activityBufferSize = 3;
 
 class MainPage extends StatefulWidget {

@@ -20,7 +20,7 @@ class SlidingActivityWidget extends StatefulWidget {
   const SlidingActivityWidget(
       {super.key, required this.activity, required this.displayPosition});
 
-  final ActivityType activity;
+  final Activity activity;
   final DisplayPosition displayPosition;
 
   @override
@@ -65,7 +65,7 @@ class _SlidingActivityWidgetState extends State<SlidingActivityWidget> {
 class ActivityWidget extends StatelessWidget {
   const ActivityWidget({super.key, required this.activity});
 
-  final ActivityType activity;
+  final Activity activity;
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,7 @@
 import 'util/types.dart';
 
 // TEMPORARY EXAMPLE ACTIVITIES LIST
-List<ActivityType> exampleActivities = [
+List<Activity> exampleActivities = [
   snowboardingExampleActivity,
   golfExampleActivity,
   codingExampleActivity,
@@ -34,198 +34,198 @@ List<ActivityType> exampleActivities = [
 ];
 
 // TEMPORARY EXAMPLE ACTIVITIES
-ActivityType snowboardingExampleActivity = ActivityType(
+Activity snowboardingExampleActivity = Activity(
   id: 0,
   title: 'Snowboarding',
   icon: '🏂',
 );
 
-ActivityType golfExampleActivity = ActivityType(
+Activity golfExampleActivity = Activity(
   id: 1,
   title: 'Golf',
   icon: '⛳️',
 );
 
-ActivityType codingExampleActivity = ActivityType(
+Activity codingExampleActivity = Activity(
   id: 2,
   title: 'Coding',
   icon: '🧑‍💻',
 );
 
-ActivityType videoGamesExampleActivity = ActivityType(
+Activity videoGamesExampleActivity = Activity(
   id: 3,
   title: 'Video Games',
   icon: '🎮',
 );
 
-ActivityType basketballExampleActivity = ActivityType(
+Activity basketballExampleActivity = Activity(
   id: 4,
   title: 'Basketball',
   icon: '🏀',
 );
 
-ActivityType workoutExampleActivity = ActivityType(
+Activity workoutExampleActivity = Activity(
   id: 5,
   title: 'Workout',
   icon: '🏋️',
 );
 
 // Running
-ActivityType runningExampleActivity = ActivityType(
+Activity runningExampleActivity = Activity(
   id: 6,
   title: 'Running',
   icon: '🏃',
 );
 
 // Soccer
-ActivityType soccerExampleActivity = ActivityType(
+Activity soccerExampleActivity = Activity(
   id: 7,
   title: 'Soccer',
   icon: '⚽️',
 );
 
 // Tennis
-ActivityType tennisExampleActivity = ActivityType(
+Activity tennisExampleActivity = Activity(
   id: 8,
   title: 'Tennis',
   icon: '🎾',
 );
 
 // Football
-ActivityType footballExampleActivity = ActivityType(
+Activity footballExampleActivity = Activity(
   id: 9,
   title: 'Football',
   icon: '🏈',
 );
 
 // Baseball
-ActivityType baseballExampleActivity = ActivityType(
+Activity baseballExampleActivity = Activity(
   id: 10,
   title: 'Baseball',
   icon: '⚾️',
 );
 
 // Swimming
-ActivityType swimmingExampleActivity = ActivityType(
+Activity swimmingExampleActivity = Activity(
   id: 11,
   title: 'Swimming',
   icon: '🏊',
 );
 
 // Surfing
-ActivityType surfingExampleActivity = ActivityType(
+Activity surfingExampleActivity = Activity(
   id: 12,
   title: 'Surfing',
   icon: '🏄',
 );
 
 // Biking
-ActivityType bikingExampleActivity = ActivityType(
+Activity bikingExampleActivity = Activity(
   id: 13,
   title: 'Biking',
   icon: '🚴',
 );
 
 // Hiking
-ActivityType hikingExampleActivity = ActivityType(
+Activity hikingExampleActivity = Activity(
   id: 14,
   title: 'Hiking',
   icon: '🚶',
 );
 
 // Skateboarding
-ActivityType skateboardingExampleActivity = ActivityType(
+Activity skateboardingExampleActivity = Activity(
   id: 15,
   title: 'Skateboarding',
   icon: '🛹',
 );
 
 // Yoga
-ActivityType yogaExampleActivity = ActivityType(
+Activity yogaExampleActivity = Activity(
   id: 16,
   title: 'Yoga',
   icon: '🧘',
 );
 
 // Dancing
-ActivityType dancingExampleActivity = ActivityType(
+Activity dancingExampleActivity = Activity(
   id: 17,
   title: 'Dancing',
   icon: '💃',
 );
 
 // Climbing
-ActivityType climbingExampleActivity = ActivityType(
+Activity climbingExampleActivity = Activity(
   id: 18,
   title: 'Climbing',
   icon: '🧗',
 );
 
 // Kayaking
-ActivityType kayakingExampleActivity = ActivityType(
+Activity kayakingExampleActivity = Activity(
   id: 19,
   title: 'Kayaking',
   icon: '🛶',
 );
 
 // Bowling
-ActivityType bowlingExampleActivity = ActivityType(
+Activity bowlingExampleActivity = Activity(
   id: 20,
   title: 'Bowling',
   icon: '🎳',
 );
 
 // Volleyball
-ActivityType volleyballExampleActivity = ActivityType(
+Activity volleyballExampleActivity = Activity(
   id: 21,
   title: 'Volleyball',
   icon: '🏐',
 );
 
 // Ping Pong
-ActivityType pingPongExampleActivity = ActivityType(
+Activity pingPongExampleActivity = Activity(
   id: 22,
   title: 'Ping Pong',
   icon: '🏓',
 );
 
 // Boxing
-ActivityType boxingExampleActivity = ActivityType(
+Activity boxingExampleActivity = Activity(
   id: 23,
   title: 'Boxing',
   icon: '🥊',
 );
 
 // Martial Arts
-ActivityType martialArtsExampleActivity = ActivityType(
+Activity martialArtsExampleActivity = Activity(
   id: 24,
   title: 'Martial Arts',
   icon: '🥋',
 );
 
 // Skiing
-ActivityType skiingExampleActivity = ActivityType(
+Activity skiingExampleActivity = Activity(
   id: 25,
   title: 'Skiing',
   icon: '⛷',
 );
 
 // Ice Skating
-ActivityType iceSkatingExampleActivity = ActivityType(
+Activity iceSkatingExampleActivity = Activity(
   id: 26,
   title: 'Ice Skating',
   icon: '⛸',
 );
 
 // Weight Lifting
-ActivityType weightLiftingExampleActivity = ActivityType(
+Activity weightLiftingExampleActivity = Activity(
   id: 27,
   title: 'Weight Lifting',
   icon: '🏋️',
 );
 
 // Fishing
-ActivityType fishingExampleActivity = ActivityType(
+Activity fishingExampleActivity = Activity(
   id: 28,
   title: 'Fishing',
   icon: '🎣',
