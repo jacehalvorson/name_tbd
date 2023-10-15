@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:refresh/src/util/get_next_activity.dart';
 import '../activities_page/activities.dart';
 import 'acceptance_button.dart';
 import 'activity_widget.dart';
@@ -79,9 +80,7 @@ class _MainPageState extends State<MainPage> {
 
         // Add a new activity to the end of the list
         activityList[((-1 * swipeCount) + 1) % activityBufferSize] =
-            exampleActivities[
-                (usersActivities[random.nextInt(usersActivities.length)]) %
-                    exampleActivities.length];
+            getNextActivity(usersActivities, exampleActivities);
 
         lastPressTime = DateTime.now();
       }
