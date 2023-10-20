@@ -70,7 +70,9 @@ class _MainPageState extends State<MainPage> {
   // Callback function for a swipe
   // TODO Implement swipe mechanic to use this callback instead of the button
   void swipeCallback() {
-    // Set the activity title to the randomly generated string
+    Activity nextActivity;
+    int indexToBeReplaced;
+
     setState(() {
       // Only execute if there hasn't been a button press
       // or if the last button press was more than swipeDuration (300 ms) ago
@@ -79,11 +81,20 @@ class _MainPageState extends State<MainPage> {
         swipeCount++;
 
         // Find the index of the activity that is not onscreen during this transition
-        int indexToBeReplaced = ((-1 * swipeCount) + 1) % activityBufferSize;
+        indexToBeReplaced = ((-1 * swipeCount) + 1) % activityBufferSize;
 
-        // Add a new activity to the buffer. This will be below the screen
-        // after this transition. shownActivities is modified by this function
-        activityList[indexToBeReplaced] = getNextActivity(usersActivities);
+        // Pick the next activity according to the algorithm
+        nextActivity = getNextActivity(usersActivities);
+
+        // Add the new activity to the buffer. This will be below the screen
+        // after this transition.
+        activityList[indexToBeReplaced] = nextActivity;
+
+        // Mark this activity as shown
+        if (!shownActivities.contains(nextActivity.id)) {
+          shownActivities.add(nextActivity.id);
+          print('shownActivities: $shownActivities');
+        }
 
         lastPressTime = DateTime.now();
       }
