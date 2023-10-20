@@ -63,7 +63,7 @@ class _MainPageState extends State<MainPage> {
     // Add example activities to activityList
     // These will be the first activities displayed to the user
     for (int i = 0; i < activityBufferSize; i++) {
-      activityList.add(getNextActivity(usersActivities, exampleActivities));
+      activityList.add(getNextActivity(usersActivities));
     }
   }
 
@@ -72,15 +72,18 @@ class _MainPageState extends State<MainPage> {
   void swipeCallback() {
     // Set the activity title to the randomly generated string
     setState(() {
-      // Only increment swipe count if there hasn't been a button press
+      // Only execute if there hasn't been a button press
       // or if the last button press was more than swipeDuration (300 ms) ago
       if (lastPressTime == null ||
           DateTime.now().difference(lastPressTime!) > swipeDuration) {
         swipeCount++;
 
-        // Add a new activity to the end of the list
-        activityList[((-1 * swipeCount) + 1) % activityBufferSize] =
-            getNextActivity(usersActivities, exampleActivities);
+        // Find the index of the activity that is not onscreen during this transition
+        int indexToBeReplaced = ((-1 * swipeCount) + 1) % activityBufferSize;
+
+        // Add a new activity to the buffer. This will be below the screen
+        // after this transition. shownActivities is modified by this function
+        activityList[indexToBeReplaced] = getNextActivity(usersActivities);
 
         lastPressTime = DateTime.now();
       }
