@@ -31,10 +31,15 @@ Activity getNextActivity(List<int> userActivities) {
       print('random activity');
     }
 
-    // Confirm this activity selection if it hasn't been shown before
-    // OR there are no more activities to show. Otherwise keep trying.
-    if (!shownActivities.contains(nextActivity.id) ||
-        shownActivities.length >= exampleActivities.length) {
+    // If this activity hasn't been shown, return it
+    if (!shownActivities.contains(nextActivity.id)) {
+      break;
+    }
+
+    // Check if all activities have been shown
+    if (shownActivities.length >= exampleActivities.length) {
+      // Reset list of shown activities now that all activities have been shown
+      shownActivities = [];
       break;
     }
   }
