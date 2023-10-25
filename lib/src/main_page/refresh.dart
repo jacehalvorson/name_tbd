@@ -16,6 +16,8 @@ const iconPaddingRight = 0.0;
 const headerPaddingTop = 18.0;
 const headerPaddingHorizontal = 24.0;
 
+const SWIPE_SENSITIVITY = 8;
+
 final random = Random();
 
 // Buffer for loaded activities ready to be displayed
@@ -74,12 +76,11 @@ class _MainPageState extends State<MainPage> {
     // or if the last swipe was more than swipeDuration (300 ms) ago
     if (lastSwipeTime == null ||
         DateTime.now().difference(lastSwipeTime!) > swipeDuration) {
-      int sensitivity = 8;
-      if (details.delta.dy > sensitivity) {
+      if (details.delta.dy > SWIPE_SENSITIVITY) {
         // Swipe down
         print('swipe down');
-        return;
-      } else if (details.delta.dy < -1 * sensitivity) {
+        swipeCount--;
+      } else if (details.delta.dy < -1 * SWIPE_SENSITIVITY) {
         // Swipe up
         print('swipe up');
         swipeCount++;
@@ -99,12 +100,12 @@ class _MainPageState extends State<MainPage> {
           print('shownActivities: $shownActivities');
         }
 
-        lastSwipeTime = DateTime.now();
         setState(() {});
       } else {
         print('Sensitivity not met');
         return;
       }
+      lastSwipeTime = DateTime.now();
     }
   }
 
