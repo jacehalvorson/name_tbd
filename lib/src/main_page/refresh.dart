@@ -124,7 +124,6 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     // Get the current color scheme
     final colorScheme = Theme.of(context).colorScheme;
-    int swipeCount = 0;
 
     return GestureDetector(
       onVerticalDragUpdate: (details) {
