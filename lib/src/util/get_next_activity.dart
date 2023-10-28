@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:math';
 import 'package:refresh/src/activities_list.dart';
 
@@ -23,12 +25,10 @@ Activity getNextActivity(List<int> userActivities) {
       // Pick random activity from user's activities
       nextActivity = exampleActivities[
           userActivities[random.nextInt(userActivities.length)]];
-      print('user activity');
     } else {
       // Pick random activity from all options
       nextActivity =
           exampleActivities[random.nextInt(exampleActivities.length)];
-      print('random activity');
     }
 
     // If this activity hasn't been shown, return it

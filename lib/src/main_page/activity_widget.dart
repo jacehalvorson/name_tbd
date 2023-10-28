@@ -49,8 +49,9 @@ class _SlidingActivityWidgetState extends State<SlidingActivityWidget> {
     };
 
     return AnimatedPositionedOpacity(
-      // 400 ms animation for swiping
-      duration: const Duration(milliseconds: 300),
+      // 250 ms animation for swiping
+      duration:
+          widget.currentTopValueOffset == 0 ? swipeDuration : Duration.zero,
 
       // Based on the swipe count, determine the top position of the widget
       // Use ! to assert that the value is not null

@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:math';
@@ -17,8 +19,8 @@ const headerPaddingTop = 18.0;
 const headerPaddingHorizontal = 24.0;
 
 const SWIPE_SENSITIVITY = 8;
-const SWIPE_STRENGTH_FACTOR = 2.5;
-const CURRENT_TOP_VALUE_OFFSET_MAX = 100;
+const SWIPE_STRENGTH_FACTOR = 0.2;
+const CURRENT_TOP_VALUE_OFFSET_MAX = 210;
 
 final random = Random();
 
@@ -72,29 +74,23 @@ class _MainPageState extends State<MainPage> {
 
   // Callback function during a swipe (gets called several times per second)
   void swipeCallback(DragUpdateDetails details) {
-    // Only execute if there hasn't been a swipe
-    // or if the last swipe was more than swipeDuration (300 ms) ago
-    if (lastSwipeTime == null ||
-        DateTime.now().difference(lastSwipeTime!) > swipeDuration) {
-      // Change its y position based on how strong the swipe is
-      currentTopValueOffset +=
-          (details.delta.dy * SWIPE_STRENGTH_FACTOR).round();
+    // Change its y position based on how strong the swipe is
+    currentTopValueOffset += (details.delta.dy * SWIPE_STRENGTH_FACTOR).round();
 
-      // Ensure that the offset is within the bounds
-      if (currentTopValueOffset > CURRENT_TOP_VALUE_OFFSET_MAX) {
-        currentTopValueOffset = CURRENT_TOP_VALUE_OFFSET_MAX;
-      } else if (currentTopValueOffset < CURRENT_TOP_VALUE_OFFSET_MAX * -1) {
-        currentTopValueOffset = CURRENT_TOP_VALUE_OFFSET_MAX * -1;
-      }
-
-      setState(() {});
+    // Ensure that the offset is within the bounds
+    if (currentTopValueOffset > CURRENT_TOP_VALUE_OFFSET_MAX) {
+      currentTopValueOffset = CURRENT_TOP_VALUE_OFFSET_MAX;
+    } else if (currentTopValueOffset < CURRENT_TOP_VALUE_OFFSET_MAX * -1) {
+      currentTopValueOffset = CURRENT_TOP_VALUE_OFFSET_MAX * -1;
     }
+
+    setState(() {});
   }
 
   // Callback function for when a swipe ends
   void swipeEndCallback(DragEndDetails details) {
     // If the swipe is strong enough, move the activity off the screen
-    if (currentTopValueOffset.abs() > CURRENT_TOP_VALUE_OFFSET_MAX / 2) {
+    if (currentTopValueOffset.abs() > SWIPE_SENSITIVITY) {
       // Find the index of the activity that is not onscreen during this transition
       int indexToBeReplaced = ((-1 * swipeCount) + 1) % activityBufferSize;
 

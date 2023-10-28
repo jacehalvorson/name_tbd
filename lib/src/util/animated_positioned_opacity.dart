@@ -19,11 +19,13 @@ class AnimatedPositionedOpacity extends StatelessWidget {
     return AnimatedPositioned(
       duration: duration,
       top: topValue,
+      // curve: Curves.easeInOut,
       left: 0,
       right: 0,
       child: AnimatedOpacity(
         duration: duration,
         opacity: opacityValue,
+        // curve: Curves.easeInOut,
         child: child,
       ),
     );
