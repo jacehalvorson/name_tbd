@@ -19,10 +19,14 @@ const fontSize = 26;
 // Animated activity widget with icon/text that slides on/off the screen
 class SlidingActivityWidget extends StatefulWidget {
   const SlidingActivityWidget(
-      {super.key, required this.activity, required this.displayPosition});
+      {super.key,
+      required this.activity,
+      required this.displayPosition,
+      required this.currentTopValueOffset});
 
   final Activity activity;
   final DisplayPosition displayPosition;
+  final int currentTopValueOffset;
 
   @override
   State<SlidingActivityWidget> createState() => _SlidingActivityWidgetState();
@@ -38,7 +42,8 @@ class _SlidingActivityWidgetState extends State<SlidingActivityWidget> {
       DisplayPosition.belowScreen:
           bottomOfScreenPosition - offScreenBelowDistance,
       // Use a fraction of the screen height to place the widget on the screen
-      DisplayPosition.onScreen: bottomOfScreenPosition * onScreenMultiplier,
+      DisplayPosition.onScreen: bottomOfScreenPosition * onScreenMultiplier +
+          widget.currentTopValueOffset,
       // Negate distance to place above the top of the screen
       DisplayPosition.aboveScreen: offScreenAboveDistance * -1,
     };

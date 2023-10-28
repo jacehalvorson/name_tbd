@@ -17,6 +17,8 @@ const headerPaddingTop = 18.0;
 const headerPaddingHorizontal = 24.0;
 
 const SWIPE_SENSITIVITY = 8;
+const SWIPE_STRENGTH_FACTOR = 2.5;
+const CURRENT_TOP_VALUE_OFFSET_MAX = 100;
 
 final random = Random();
 
@@ -36,6 +38,7 @@ class MainPage extends StatefulWidget {
 /// Displays detailed information about a SampleItem.
 class _MainPageState extends State<MainPage> {
   int swipeCount = 0;
+  int currentTopValueOffset = 0;
   DateTime? lastSwipeTime;
 
   // retrieve user's activities
@@ -67,46 +70,58 @@ class _MainPageState extends State<MainPage> {
     }
   }
 
-  // Callback function for a swipe
+  // Callback function during a swipe (gets called several times per second)
   void swipeCallback(DragUpdateDetails details) {
-    Activity nextActivity;
-    int indexToBeReplaced;
-
     // Only execute if there hasn't been a swipe
     // or if the last swipe was more than swipeDuration (300 ms) ago
     if (lastSwipeTime == null ||
         DateTime.now().difference(lastSwipeTime!) > swipeDuration) {
-      if (details.delta.dy > SWIPE_SENSITIVITY) {
-        // Swipe down
-        print('swipe down');
-        swipeCount--;
-      } else if (details.delta.dy < -1 * SWIPE_SENSITIVITY) {
-        // Swipe up
-        print('swipe up');
-        swipeCount++;
-        // Find the index of the activity that is not onscreen during this transition
-        indexToBeReplaced = ((-1 * swipeCount) + 1) % activityBufferSize;
+      // Change its y position based on how strong the swipe is
+      currentTopValueOffset +=
+          (details.delta.dy * SWIPE_STRENGTH_FACTOR).round();
 
-        // Pick the next activity according to the algorithm
-        nextActivity = getNextActivity(usersActivities);
-
-        // Add the new activity to the buffer. This will be below the screen
-        // after this transition.
-        activityList[indexToBeReplaced] = nextActivity;
-
-        // Mark this activity as shown
-        if (!shownActivities.contains(nextActivity.id)) {
-          shownActivities.add(nextActivity.id);
-          print('shownActivities: $shownActivities');
-        }
-
-        setState(() {});
-      } else {
-        print('Sensitivity not met');
-        return;
+      // Ensure that the offset is within the bounds
+      if (currentTopValueOffset > CURRENT_TOP_VALUE_OFFSET_MAX) {
+        currentTopValueOffset = CURRENT_TOP_VALUE_OFFSET_MAX;
+      } else if (currentTopValueOffset < CURRENT_TOP_VALUE_OFFSET_MAX * -1) {
+        currentTopValueOffset = CURRENT_TOP_VALUE_OFFSET_MAX * -1;
       }
-      lastSwipeTime = DateTime.now();
+
+      setState(() {});
     }
+  }
+
+  // Callback function for when a swipe ends
+  void swipeEndCallback(DragEndDetails details) {
+    // If the swipe is strong enough, move the activity off the screen
+    if (currentTopValueOffset.abs() > CURRENT_TOP_VALUE_OFFSET_MAX / 2) {
+      // Find the index of the activity that is not onscreen during this transition
+      int indexToBeReplaced = ((-1 * swipeCount) + 1) % activityBufferSize;
+
+      // Pick the next activity according to the algorithm
+      Activity nextActivity = getNextActivity(usersActivities);
+
+      // Add the new activity to the buffer. This will be below the screen
+      // after this transition.
+      activityList[indexToBeReplaced] = nextActivity;
+
+      // Mark this activity as shown
+      if (!shownActivities.contains(nextActivity.id)) {
+        shownActivities.add(nextActivity.id);
+        print('shownActivities: $shownActivities');
+      }
+
+      // Change the swipe count based on direction
+      if (currentTopValueOffset > 0) {
+        swipeCount--;
+      } else {
+        swipeCount++;
+      }
+    }
+
+    // Reset the offset
+    currentTopValueOffset = 0;
+    setState(() {});
   }
 
   // temporary debug function to clear shared prefs
@@ -129,6 +144,10 @@ class _MainPageState extends State<MainPage> {
     return GestureDetector(
       onVerticalDragUpdate: (details) {
         swipeCallback(details);
+      },
+      onVerticalDragEnd: (details) {
+        swipeEndCallback(details);
+        setState(() {});
       },
       child: Scaffold(
         backgroundColor: colorScheme.background,
@@ -157,6 +176,7 @@ class _MainPageState extends State<MainPage> {
               return SlidingActivityWidget(
                 activity: activityList[index],
                 displayPosition: displayPosition,
+                currentTopValueOffset: currentTopValueOffset,
               );
             }),
 
