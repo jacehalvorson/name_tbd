@@ -18,7 +18,7 @@ const iconPaddingRight = 0.0;
 const headerPaddingTop = 18.0;
 const headerPaddingHorizontal = 24.0;
 
-const SWIPE_SENSITIVITY = 8;
+const SWIPE_SENSITIVITY = 100;
 const SWIPE_STRENGTH_FACTOR = 0.2;
 const CURRENT_TOP_VALUE_OFFSET_MAX = 210;
 
