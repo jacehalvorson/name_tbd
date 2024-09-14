@@ -10,7 +10,7 @@ on:
 name: "Build"
 jobs:
   build:
-  name: "Build"
+  name: Build
   runs-on: macos-latest
   steps:
     - uses: actions/checkout@v1
